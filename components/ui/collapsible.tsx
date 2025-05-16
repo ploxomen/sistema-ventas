@@ -5,7 +5,7 @@ import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"
 function Collapsible({
   ...props
 }: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {
-  return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />
+  return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} className="text-base font-semibold py-1 pr-2 pl-3 "/>
 }
 
 function CollapsibleTrigger({
