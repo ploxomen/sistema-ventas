@@ -58,7 +58,7 @@ export function NavUser({
         </Avatar>
       </SheetTrigger>
       <SheetContent className="w-[400px] sm:w-[540px]" bgOverlay="bg-trasnparent">
-        <SheetTitle></SheetTitle>
+        <SheetTitle className="hidden">Contenido usuario</SheetTitle>
         <div className="py-10 px-8">
           <Avatar className="size-30 cursor-pointer m-auto">
             <AvatarImage src="https://pub-c5e31b5cdafb419fb247a8ac2e78df7a.r2.dev/public/assets/images/mock/avatar/avatar-25.webp" />
