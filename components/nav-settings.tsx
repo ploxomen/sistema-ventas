@@ -5,19 +5,21 @@ import { Button } from './ui/button';
 import { ArrowRightLeft, Contrast, Scaling, Settings, SunMoon } from 'lucide-react';
 import { ContentBox, ContentSettignOption } from './setting-option';
 import { useTheme } from 'next-themes';
+import { useDirectionStore } from '@/store/useDirectionStore';
 
 export default function NavSettings() {
   const { setTheme, theme} = useTheme();
+  const {toogleRTL,isRTL} = useDirectionStore();
   const handleChangeTheme = (checked: boolean) => setTheme(checked ? 'dark' : 'light')
-  
+  // const handleChangeDirection = (checked : boolean) => 
     return (
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline">
-                <Settings />
+            <Button variant="ghost">
+                <Settings className="animate-[spin_3s_linear_infinite] size-5"/>
             </Button>
           </SheetTrigger>
-          <SheetContent className="w-[360px] sm:w-[540px] dark:bg-[rgba(20, 26, 33, 0.9)] bg-[url(/background-dialog.svg)] bg-no-repeat shadow-[-40px_40px_80px_-8px_red] bg-[size:50%] bg-[position:100%_0] backdrop-blur-xl" bgOverlay="bg-trasnparent">
+          <SheetContent side={isRTL ? 'left' : 'right'} className="w-[360px] sm:w-[540px]" bgOverlay="bg-trasnparent">
             <SheetTitle className="hidden">Contenido configuración</SheetTitle>
             <div className="py-10 px-8">
               <div className="grid grid-cols-2 gap-4">
@@ -28,7 +30,7 @@ export default function NavSettings() {
                     <ContentSettignOption text='Contraste' icon={Contrast} onCheckedChange={handleChangeTheme} checked={false}/>
                 </ContentBox>
                 <ContentBox className='col-span-1'>
-                    <ContentSettignOption text='Posicionamiento' icon={ArrowRightLeft} onCheckedChange={handleChangeTheme} checked={false}/>
+                    <ContentSettignOption text='Posicionamiento' icon={ArrowRightLeft} onCheckedChange={toogleRTL} checked={isRTL}/>
                 </ContentBox>
                 <ContentBox className='col-span-1'>
                     <ContentSettignOption text='Compacto' icon={Scaling} onCheckedChange={handleChangeTheme} checked={false}/>

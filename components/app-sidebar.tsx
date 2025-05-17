@@ -25,6 +25,7 @@ import {
   SidebarHeader,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { useDirectionStore } from "@/store/useDirectionStore"
 
 // This is sample data.
 const data = {
@@ -157,9 +158,10 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const {isRTL} = useDirectionStore();
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarTrigger className="absolute cursor-pointer bg-white rounded-full z-10 top-2 -right-3.5" />
+    <Sidebar collapsible="icon" {...props} side={isRTL ? 'right' : 'left'}>
+      <SidebarTrigger className="absolute cursor-pointer bg-white rounded-full z-10 top-2 ltr:-right-3.5 rtl:-left-3.5" />
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>

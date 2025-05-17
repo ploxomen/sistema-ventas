@@ -15,7 +15,7 @@ const Switch = React.forwardRef<React.ElementRef<typeof SwitchPrimitives.Root>, 
     const sizeStyles = {
       sm: {
         root: "w-6 h-4",
-        thumb: "size-[10px] data-[state=checked]:translate-x-2.5",
+        thumb: "size-[10px] ltr:data-[state=checked]:translate-x-2.5 rtl:data-[state=checked]:-translate-x-2.5",
       },
       md: {
         root: "w-10 h-5",
@@ -45,7 +45,7 @@ const Switch = React.forwardRef<React.ElementRef<typeof SwitchPrimitives.Root>, 
       >
         <SwitchPrimitives.Thumb
           className={cn(
-            "pointer-events-none block rounded-full bg-background shadow-lg ring-0 transition-transform",
+            "pointer-events-none block rounded-full bg-background shadow-lg ring-0 transition-all",
             currentSize.thumb,
           )}
         />

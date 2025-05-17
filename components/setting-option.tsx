@@ -49,7 +49,7 @@ export function ContentSettignOption({
     <Button
       variant="secondary"
       asChild
-      className={cn("p-0 rounded-2xl block h-auto w-full border-1", className)}
+      className={cn(`p-0 rounded-2xl block h-auto w-full border-1 ${checked ? 'bg-[#919eab14] hover:bg-[#919eab14]' : 'bg-transparent hover:bg-inherit'}`, className)}
     >
       <Label className="block w-full cursor-pointer px-5 py-4">
         <IconsSettingOption
