@@ -54,7 +54,7 @@ export function NavUser({
             <p className="text-white font-semibold text-base">{user.name}</p>
             <p className="text-slate-400 mt-1 text-sm">{user.email}</p>
           </div>
-          <ul className="flex border-y-1 border-dashed flex-col gap-4 text-gray-500">
+          <ul className="flex border-y-1 border-dashed px-5 py-6 flex-col gap-4 text-gray-500">
             <li className="hover:bg-accent rounded-md p-2">
               <a href="" className="flex gap-4">
                 <House className="size-6" />
