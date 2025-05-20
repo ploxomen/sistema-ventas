@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   AudioWaveform,
   BookOpen,
@@ -12,20 +12,15 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { useDirectionStore } from "@/store/useDirectionStore"
+} from "@/components/ui/sidebar";
+import { useDirectionStore } from "@/store/useDirectionStore";
 
 // This is sample data.
 const data = {
@@ -155,16 +150,16 @@ const data = {
       icon: Map,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const {isRTL} = useDirectionStore();
+  const { isRTL } = useDirectionStore();
   return (
-    <Sidebar collapsible="icon" {...props} side={isRTL ? 'right' : 'left'}>
+    <Sidebar collapsible="icon" {...props} side={isRTL ? "right" : "left"}>
       <SidebarTrigger className="absolute cursor-pointer bg-white rounded-full z-10 top-2 ltr:-right-3.5 rtl:-left-3.5" />
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }
