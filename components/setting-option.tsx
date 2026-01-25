@@ -11,7 +11,10 @@ interface TextProps {
   text: string;
   className?: string;
 }
-
+interface IconButtonSvg{
+  Icon : React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  className?: string
+}
 type ContentProps = TextProps & IconProps & SwitchProps;
 export function IconsSettingOption({
   icon: Icon,
@@ -37,6 +40,21 @@ export function ContentBox({
   ...props
 }: React.ComponentProps<"div">) {
   return <div className={className} {...props} />;
+}
+export function ButtonSvg({Icon, className = ""} : IconButtonSvg){
+  return (
+    <button className={className}>
+      <Icon aria-hidden="true" className="w-20 h-20"/>
+    </button>
+  )
+}
+export function ContentSettignBox({className, ...props} : React.ComponentProps<"div">) {
+  return (
+    <ContentBox 
+      className="rounded-2xl border-1 py-8 px-4"
+      {...props}
+    />
+  )
 }
 export function ContentSettignOption({
   icon: Icon,

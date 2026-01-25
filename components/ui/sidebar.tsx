@@ -544,7 +544,7 @@ function SidebarMenuButton({
       children: tooltip,
     }
   }
-
+  console.log({...tooltip})
   return (
     <HoverCard>
       <HoverCardTrigger asChild>{button}</HoverCardTrigger>
@@ -552,10 +552,9 @@ function SidebarMenuButton({
         side="right"
         align="center"
         hidden={state === "expanded"}
+        className="bg-white p-2 rounded-xl text-sm"
         {...tooltip}
       >
-        <p>sdasd</p>
-        <button>sdadas</button>
       </HoverCardContent>
     </HoverCard>
   )
