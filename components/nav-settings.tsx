@@ -10,6 +10,7 @@ import {
 import { Button } from "./ui/button";
 import {
   ArrowRightLeft,
+  CaseSensitiveIcon,
   Contrast,
   Scaling,
   Settings,
@@ -22,6 +23,7 @@ import {
   ContentBox,
   ContentSettignBox,
   ContentSettignOption,
+  SliderFont,
 } from "./setting-option";
 import { useTheme } from "next-themes";
 import { useDirectionStore } from "@/store/useDirectionStore";
@@ -58,7 +60,7 @@ export default function NavSettings() {
             Configuración
           </SheetTitle>
         </SheetHeader>
-        <ContentBox className="pb-5 px-5 flex flex-col gap-11">
+        <ContentBox className="no-scrollbar overflow-y-auto pb-5 px-5 flex flex-col gap-11">
           <ContentBox className="grid grid-cols-2 gap-4">
             <ContentBox className="col-span-1">
               <ContentSettignOption
@@ -104,7 +106,7 @@ export default function NavSettings() {
                   <ButtonSvg Icon={LayoutNavRight}></ButtonSvg>
                 </ContentBox>
               </ContentBox>
-              <ContentBox className="flex gap-3">
+              <ContentBox className="flex gap-3 flex-col">
                 <ButtonBase>Color</ButtonBase>
                 <ContentBox className="flex gap-3">
                   <ButtonSvg
@@ -148,6 +150,52 @@ export default function NavSettings() {
                 className="justify-center text-xs h-14"
                 Icon={Layout}
               />
+            </ContentBox>
+          </ContentSettignBox>
+          <ContentSettignBox>
+            <BadgeAsNav text="Fuentes" />
+            <ContentBox className="flex gap-3 flex-col">
+              <ContentBox className="flex gap-3 flex-col">
+                <ButtonBase>Tipo de letra</ButtonBase>
+                <ContentBox className="grid grid-cols-2 gap-3">
+                  <ButtonSvg
+                    Icon={CaseSensitiveIcon}
+                    className="flex-col gap-0 py-4"
+                    text="Public Sans"
+                    iconProps={{
+                      className: "text-2xl size-7",
+                    }}
+                  />
+                  <ButtonSvg
+                    Icon={CaseSensitiveIcon}
+                    className="flex-col gap-0 py-4"
+                    text="Public Sans"
+                    iconProps={{
+                      className: "text-2xl size-7",
+                    }}
+                  />
+                  <ButtonSvg
+                    Icon={CaseSensitiveIcon}
+                    className="flex-col gap-0 py-4"
+                    text="Public Sans"
+                    iconProps={{
+                      className: "text-2xl size-7",
+                    }}
+                  />
+                  <ButtonSvg
+                    Icon={CaseSensitiveIcon}
+                    className="flex-col gap-0 py-4"
+                    text="Public Sans"
+                    iconProps={{
+                      className: "text-2xl size-7",
+                    }}
+                  />
+                </ContentBox>
+              </ContentBox>
+              <ContentBox className="flex flex-col gap-3">
+                <ButtonBase>Tamaño</ButtonBase>
+                <SliderFont valueInitial={20} />
+              </ContentBox>
             </ContentBox>
           </ContentSettignBox>
         </ContentBox>

@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { SwitchProps } from "@/types/inputs";
 import { Badge } from "@/components/ui/badge";
+import { Slider } from "./ui/slider";
+import { useState } from "react";
 interface IconProps {
   icon: LucideIcon;
 }
@@ -16,6 +18,7 @@ interface IconButtonSvg {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   text?: string;
   className?: string;
+  iconProps?: React.SVGProps<SVGSVGElement>;
 }
 type ContentProps = TextProps & IconProps & SwitchProps;
 export function IconsSettingOption({
@@ -69,10 +72,21 @@ export function ButtonBase({
     </button>
   );
 }
-export function ButtonSvg({ Icon, className = "", text = "", ...props }: IconButtonSvg) {
+export function SliderFont({ valueInitial }: { valueInitial: number }) {
+  const [value, setValue] = useState([valueInitial]);
+  return <Slider min={12} max={20} complementValue="px" step={1} value={value} className="mx-auto w-full max-w-xs" onValueChange={setValue} />;
+}
+export function ButtonSvg({
+  Icon,
+  className = "",
+  text = "",
+  iconProps,
+}: IconButtonSvg) {
   return (
-    <ButtonBase className={cn("text-slate-500 flex gap-3 items-center", className)}>
-      <Icon aria-hidden="true" className="w-20 h-20" />
+    <ButtonBase
+      className={cn("text-slate-500 flex gap-3 items-center", className)}
+    >
+      <Icon aria-hidden="true" {...iconProps} />
       {text && <span>{text}</span>}
     </ButtonBase>
   );
@@ -81,7 +95,12 @@ export function ContentSettignBox({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  return <ContentBox className="rounded-2xl relative border-1 pt-6 pb-4 px-4" {...props} />;
+  return (
+    <ContentBox
+      className="rounded-2xl relative border-1 pt-6 pb-4 px-4"
+      {...props}
+    />
+  );
 }
 export function ContentSettignOption({
   icon: Icon,
