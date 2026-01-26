@@ -32,6 +32,7 @@ import LayoutNavLeft from "./icons/LayoutNavLeft";
 import LayoutNavRight from "./icons/LayoutNavRight";
 import ColorIntegrate from "./icons/ColorIntegrate";
 import ColorApparent from "./icons/ColorApparent";
+import Layout from "./icons/Layout";
 
 export default function NavSettings() {
   const { setTheme, theme } = useTheme();
@@ -93,8 +94,8 @@ export default function NavSettings() {
             </ContentBox>
           </ContentBox>
           <ContentSettignBox>
+            <BadgeAsNav text="Navegación" />
             <ContentBox className="flex gap-3 flex-col">
-              <BadgeAsNav text="Navegación" />
               <ContentBox className="flex gap-3 flex-col">
                 <ButtonBase>Posición</ButtonBase>
                 <ContentBox className="flex gap-3">
@@ -103,7 +104,7 @@ export default function NavSettings() {
                   <ButtonSvg Icon={LayoutNavRight}></ButtonSvg>
                 </ContentBox>
               </ContentBox>
-              <ContentBox className="flex gap-3 flex-col">
+              <ContentBox className="flex gap-3">
                 <ButtonBase>Color</ButtonBase>
                 <ContentBox className="flex gap-3">
                   <ButtonSvg
@@ -118,6 +119,35 @@ export default function NavSettings() {
                   />
                 </ContentBox>
               </ContentBox>
+            </ContentBox>
+          </ContentSettignBox>
+          <ContentSettignBox>
+            <BadgeAsNav text="Color" />
+            <ContentBox className="grid grid-cols-3 gap-3">
+              <ButtonSvg
+                className="col-span-1 justify-center text-xs h-14"
+                Icon={Layout}
+              />
+              <ButtonSvg
+                className="justify-center text-xs h-14"
+                Icon={Layout}
+              />
+              <ButtonSvg
+                className="justify-center text-xs h-14"
+                Icon={Layout}
+              />
+              <ButtonSvg
+                className="justify-center text-xs h-14"
+                Icon={Layout}
+              />
+              <ButtonSvg
+                className="justify-center text-xs h-14"
+                Icon={Layout}
+              />
+              <ButtonSvg
+                className="justify-center text-xs h-14"
+                Icon={Layout}
+              />
             </ContentBox>
           </ContentSettignBox>
         </ContentBox>
