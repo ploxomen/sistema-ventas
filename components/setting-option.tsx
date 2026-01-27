@@ -74,7 +74,17 @@ export function ButtonBase({
 }
 export function SliderFont({ valueInitial }: { valueInitial: number }) {
   const [value, setValue] = useState([valueInitial]);
-  return <Slider min={12} max={20} complementValue="px" step={1} value={value} className="mx-auto w-full max-w-xs" onValueChange={setValue} />;
+  return (
+    <Slider
+      min={12}
+      max={20}
+      complementValue="px"
+      step={1}
+      value={value}
+      className="mx-auto w-full max-w-xs"
+      onValueChange={setValue}
+    />
+  );
 }
 export function ButtonSvg({
   Icon,

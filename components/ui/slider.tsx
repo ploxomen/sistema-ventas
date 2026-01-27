@@ -27,7 +27,10 @@ function Slider({
           : [min, max],
     [value, defaultValue, min, max],
   );
-  const separator = Math.floor((max - min) / step);
+  const separators = Array.from(
+    { length: (max - min) / step + 1 },
+    (_, i) => min + i * step,
+  );
 
   return (
     <SliderPrimitive.Root
@@ -48,14 +51,16 @@ function Slider({
           "bg-muted relative grow overflow-hidden rounded-full data-[orientation=horizontal]:h-3 data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-1.5",
         )}
       >
-        {Array.from({ length: separator }, (_, index) => (
-          <span
-            className="absolute z-10 bg-red-500 block w-0.5 h-2 top-0"
+        {separators.map((mark) => {
+          if(value !== undefined && mark === value[0]) return null;
+          return (<span
+            key={mark}
+            className="absolute top-1/2 z-10 bg-muted-foreground block w-0.5 -translate-y-1/2 h-2"
             style={{
-              left: `${(100 / separator) * index}%`,
+              left: `${((mark - min) / (max - min)) * 100}%`,
             }}
-          ></span>
-        ))}
+          ></span>)
+        })}
         <SliderPrimitive.Range
           data-slot="slider-range"
           className={cn(
