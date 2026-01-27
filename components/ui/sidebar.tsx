@@ -25,6 +25,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@radix-ui/react-hover-card"
+import { usePositionSidebar } from "@/store/usePositionSidebar"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -126,6 +127,7 @@ function SidebarProvider({
     }),
     [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
   )
+    const { positionSidebar } = usePositionSidebar();
 
   return (
     <SidebarContext.Provider value={contextValue}>
@@ -141,7 +143,8 @@ function SidebarProvider({
           }
           className={cn(
             "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
-            className
+            className,
+            positionSidebar === 'right' ? 'flex-row-reverse' : ''
           )}
           {...props}
         >
@@ -544,7 +547,6 @@ function SidebarMenuButton({
       children: tooltip,
     }
   }
-  console.log({...tooltip})
   return (
     <HoverCard>
       <HoverCardTrigger asChild>{button}</HoverCardTrigger>

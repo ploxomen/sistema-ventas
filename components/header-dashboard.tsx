@@ -1,8 +1,8 @@
-import React from "react";
 import { SidebarHeader, SidebarUser } from "./ui/sidebar";
 import { TeamSwitcher } from "./team-switcher";
 import { NavUser } from "./nav-user";
 import NavSettings from "./nav-settings";
+import Header from "./header";
 
 const data = {
     headquarters : [
@@ -18,9 +18,9 @@ const data = {
     }
 }
 
-export default function HeaderDashboard() {
+export default function HeaderDashboard() {   
   return (
-    <header className="flex items-center px-4 py-2 shrink-0 justify-between gap-2 transition-[width,height] ease-linear">
+    <Header>
       <SidebarHeader>
         <TeamSwitcher teams={data.headquarters} />
       </SidebarHeader>
@@ -28,6 +28,6 @@ export default function HeaderDashboard() {
         <NavSettings /> 
         <NavUser user={data.user} />
       </SidebarUser>
-    </header>
+    </Header>
   );
 }

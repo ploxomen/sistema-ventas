@@ -21,6 +21,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useDirectionStore } from "@/store/useDirectionStore";
+import { Position, usePositionSidebar } from "@/store/usePositionSidebar";
 
 // This is sample data.
 const data = {
@@ -154,8 +155,15 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { isRTL } = useDirectionStore();
+  const { positionSidebar } = usePositionSidebar();
+  let position: Position = "left";
+  if (!isRTL && positionSidebar === "right") {
+    position = "right";
+  } else if (isRTL && positionSidebar === "left") {
+    position = "right";
+  }
   return (
-    <Sidebar collapsible="icon" {...props} side={isRTL ? "right" : "left"}>
+    <Sidebar collapsible="icon" {...props} side={position}>
       <SidebarTrigger className="absolute cursor-pointer bg-white rounded-full z-10 top-2 ltr:-right-3.5 rtl:-left-3.5" />
       <SidebarContent>
         <NavMain items={data.navMain} />
