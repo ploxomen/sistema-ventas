@@ -35,12 +35,14 @@ import LayoutNavRight from "./icons/LayoutNavRight";
 import ColorIntegrate from "./icons/ColorIntegrate";
 import ColorApparent from "./icons/ColorApparent";
 import Layout from "./icons/Layout";
+import { colorMap, colors, useThemeColor } from "@/store/useThemeColor";
 
 export default function NavSettings() {
   const { setTheme, theme } = useTheme();
   const { toggleRTL, isRTL } = useDirectionStore();
   const { toggleContract, isContract } = useContract();
   const { toggleContrast, isContrast } = useContrast();
+  const { setPrimaryColor, primaryColor } = useThemeColor();
   const handleChangeTheme = (checked: boolean) =>
     setTheme(checked ? "dark" : "light");
   return (
@@ -126,30 +128,23 @@ export default function NavSettings() {
           <ContentSettignBox>
             <BadgeAsNav text="Color" />
             <ContentBox className="grid grid-cols-3 gap-3">
-              <ButtonSvg
-                className="col-span-1 justify-center text-xs h-14"
-                Icon={Layout}
-              />
-              <ButtonSvg
-                className="justify-center text-xs h-14"
-                Icon={Layout}
-              />
-              <ButtonSvg
-                className="justify-center text-xs h-14"
-                Icon={Layout}
-              />
-              <ButtonSvg
-                className="justify-center text-xs h-14"
-                Icon={Layout}
-              />
-              <ButtonSvg
-                className="justify-center text-xs h-14"
-                Icon={Layout}
-              />
-              <ButtonSvg
-                className="justify-center text-xs h-14"
-                Icon={Layout}
-              />
+              {colors.map((color) => (
+                <ButtonSvg
+                  key={color}
+                  className={`col-span-1 justify-center text-xs h-14 rounded-xl`}
+                  style={{
+                    backgroundColor:
+                      color === primaryColor ? `rgb(${colorMap[color]},0.2)` : "",
+                  }}
+                  Icon={Layout}
+                  onClick={(e) => setPrimaryColor(color)}
+                  iconProps={{
+                    style: {
+                      color: `rgb(${colorMap[color]})`,
+                    },
+                  }}
+                />
+              ))}
             </ContentBox>
           </ContentSettignBox>
           <ContentSettignBox>

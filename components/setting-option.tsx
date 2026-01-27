@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { SwitchProps } from "@/types/inputs";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "./ui/slider";
-import { useState } from "react";
+import { ButtonHTMLAttributes, useState } from "react";
 interface IconProps {
   icon: LucideIcon;
 }
@@ -57,6 +57,7 @@ export function BadgeAsNav({ text, className }: TextProps) {
 export function ButtonBase({
   className = "",
   children,
+  ...props
 }: {
   className?: string;
   children?: React.ReactNode;
@@ -67,6 +68,7 @@ export function ButtonBase({
         "cursor-pointer text-[10px] text-left font-semibold text-primary",
         className,
       )}
+      {...props}
     >
       {children}
     </button>
@@ -91,12 +93,14 @@ export function ButtonSvg({
   className = "",
   text = "",
   iconProps,
-}: IconButtonSvg) {
+  ...props
+}: IconButtonSvg & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <ButtonBase
       className={cn("text-slate-500 flex gap-3 items-center", className)}
+      {...props}
     >
-      <Icon aria-hidden="true" {...iconProps} />
+      <Icon aria-hidden="true" className={iconProps?.className} {...iconProps} />
       {text && <span>{text}</span>}
     </ButtonBase>
   );

@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Layout() {
+export default function Layout({ className, ...props}: { className?: string }) {
   return (
     <svg
-      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-952deb"
+      className={className}
       focusable="false"
       aria-hidden="true"
       viewBox="0 0 24 24"
@@ -11,6 +11,7 @@ export default function Layout() {
       height="24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         opacity="0.4"

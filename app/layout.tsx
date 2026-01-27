@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { DirectionWrapper } from "@/components/direction-wrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,7 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <DirectionWrapper>{children}</DirectionWrapper>
+          {children}
         </ThemeProvider>
       </body>
     </html>
