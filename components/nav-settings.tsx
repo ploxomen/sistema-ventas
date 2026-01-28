@@ -107,6 +107,7 @@ export default function NavSettings() {
                 <ContentBox className="flex gap-3">
                   {POSITION_OPTIONS.map((option) => (
                     <ButtonSvg
+                      className={positionSidebar === option.position ? "text-primary" : ""}
                       key={option.position}
                       Icon={option.Icon}
                       onClick={(e) => setPositionSidebar(option.position)}

@@ -7,10 +7,10 @@ export type ThemeColor =
   | "green"
   | "purple"
   | "orange"
-  | "black";
+  | "yellow";
 export const colors: ThemeColor[] = [
   "blue",
-  "black",
+  "yellow",
   "green",
   "orange",
   "purple",
@@ -23,7 +23,7 @@ export const colorMap: Record<ThemeColor, string> = {
   green: "34,197,94",
   purple: "168,85,247",
   orange: "249,115,22",
-  black: "23,23,23",
+  yellow: "253,169,45",
 };
 interface ThemeState {
   primaryColor: ThemeColor;
