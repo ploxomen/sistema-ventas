@@ -221,12 +221,12 @@ function Sidebar({
   }
   let classSideDefault =
     "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex";
-  if (positionSidebar === "left" || positionSidebar === "right") {
+  if (side === "left" || side === "right") {
     classSideDefault +=
-      positionSidebar === "left"
+      side === "left"
         ? " left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
         : " right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]";
-  } else if (positionSidebar === "top") {
+  } else if (side === "top") {
     classSideDefault = "hidden h-auto w-full flex";
   }
   return (
@@ -563,7 +563,6 @@ function SidebarMenuButton({
   const Comp = asChild ? Slot : "div";
   const { state } = useSidebar();
   const { positionSidebar } = usePositionSidebar();
-  console.log(state, positionSidebar);
   const button = (
     <Comp
       data-slot="sidebar-menu-button"
