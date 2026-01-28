@@ -8,5 +8,5 @@ export default function ContentMain({
   children: React.ReactNode;
 }) {
     const { isContract } = useContract();
-    return <div className={`px-10 pb-1 pt-2 mx-auto w-full ${isContract && 'max-w-[1400px]'}`}>{children}</div>;
+    return <main className={`px-10 flex-1 pb-1 pt-2 mx-auto w-full ${isContract && 'max-w-[1400px]'}`}>{children}</main>;
 }

@@ -37,7 +37,7 @@ export function NavMain({
         <img className="size-12 group-data-[collapsible=icon]:m-auto" src="icon-app.svg" />
       </div>
       <SidebarMenu>
-        <Accordion type="single" collapsible>
+        <Accordion type="single" collapsible className="group-data-[side=top]:flex group-data-[side=top]:gap-3 group-data-[side=top]:overflow-x-auto">
           {items.map((item) => (
             <AccordionItem
               key={item.title}
