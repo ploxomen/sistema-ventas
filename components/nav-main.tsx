@@ -46,10 +46,10 @@ export function NavMain({
             >
               <SidebarMenuItem>
                 <AccordionTrigger className="p-0">
-                  <SidebarMenuButton className="py-1 pr-2 h-11 pl-3 cursor-pointer" tooltip={item.title}>
+                  <SidebarMenuButton className="py-1 pr-2 h-11 pl-3 cursor-pointer" tooltip={item.items}>
                     {item.icon && <item.icon className="group-data-[collapsible=icon]:size-5! group-data-[collapsible=icon]:mb-1 group-data-[collapsible=icon]:m-auto !size-6" />}
                     <span>{item.title}</span>
-                    <ChevronRight className="rtl:mr-auto ltr:ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 group-data-[collapsible=icon]:hidden" />
+                    <ChevronRight className="rtl:mr-auto ltr:ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 group-data-[side=top]:rotate-90 group-data-[collapsible=icon]:absolute group-data-[collapsible=icon]:top-2 group-data-[side=right]:rotate-180 group-data-[side=left]:right-0" />
                   </SidebarMenuButton>
                 </AccordionTrigger>
                 <AccordionContent>

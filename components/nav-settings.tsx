@@ -29,14 +29,13 @@ import { useTheme } from "next-themes";
 import { useDirectionStore } from "@/store/useDirectionStore";
 import { useContract } from "@/store/useContract";
 import { useContrast } from "@/store/useContrast";
-import ColorIntegrate from "./icons/ColorIntegrate";
-import ColorApparent from "./icons/ColorApparent";
 import Layout from "./icons/Layout";
 import { colorMap, colors, useThemeColor } from "@/store/useThemeColor";
 import {
   POSITION_OPTIONS,
   usePositionSidebar,
 } from "@/store/usePositionSidebar";
+import { COLOR_SIDEBAR_OPTIONS, useColorSidebar } from "@/store/useColorSidebar";
 
 export default function NavSettings() {
   const { setTheme, theme } = useTheme();
@@ -45,6 +44,7 @@ export default function NavSettings() {
   const { toggleContrast, isContrast } = useContrast();
   const { setPrimaryColor, primaryColor } = useThemeColor();
   const { setPositionSidebar, positionSidebar } = usePositionSidebar();
+  const { setColorSidebar, colorSidebar } = useColorSidebar();
   const handleChangeTheme = (checked: boolean) =>
     setTheme(checked ? "dark" : "light");
   return (
@@ -118,16 +118,20 @@ export default function NavSettings() {
               <ContentBox className="flex gap-3 flex-col">
                 <ButtonBase>Color</ButtonBase>
                 <ContentBox className="flex gap-3">
-                  <ButtonSvg
-                    className="flex-1/2 justify-center text-xs h-14"
-                    Icon={ColorIntegrate}
-                    text="Claro"
-                  />
-                  <ButtonSvg
-                    className="flex-1/2 justify-center text-xs h-14"
-                    Icon={ColorApparent}
-                    text="Oscuro"
-                  />
+                  {
+                    COLOR_SIDEBAR_OPTIONS.map((option) => (
+                      <ButtonSvg
+                        className={`flex-1/2 justify-center text-xs h-14 ${colorSidebar === option.color ? 'border-primary bg-white shadow-lg' : ''} rounded-xl`}
+                        key={option.color}
+                        Icon={option.Icon}
+                        text={option.text}
+                        onClick={() => setColorSidebar(option.color)}
+                        iconProps={{
+                          className: colorSidebar === option.color ? "text-primary" : "",
+                        }}
+                      />
+                    ))
+                  }
                 </ContentBox>
               </ContentBox>
             </ContentBox>

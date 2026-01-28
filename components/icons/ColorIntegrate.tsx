@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function ColorIntegrate() {
+export default function ColorIntegrate({className}: {className?: string}) {
   return (
     <svg
-      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-ia94qz"
+      className={className}
       focusable="false"
       aria-hidden="true"
       viewBox="0 0 24 24"

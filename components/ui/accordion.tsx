@@ -6,6 +6,7 @@ import { ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { useSidebar } from "./sidebar"
+import { usePositionSidebar } from "@/store/usePositionSidebar"
 
 function Accordion({
   ...props
@@ -57,7 +58,8 @@ function AccordionContent({
   ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
   const { state } = useSidebar();
-  if(state === "collapsed"){
+  const { positionSidebar } = usePositionSidebar();
+  if(state === "collapsed" || positionSidebar === "top"){
     return 
   }
   return (

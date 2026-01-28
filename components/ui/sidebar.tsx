@@ -19,10 +19,8 @@ import {
 } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
   HoverCard,
@@ -30,6 +28,8 @@ import {
   HoverCardTrigger,
 } from "@radix-ui/react-hover-card";
 import { Position, usePositionSidebar } from "@/store/usePositionSidebar";
+import { useColorSidebar } from "@/store/useColorSidebar";
+import { ContentBox } from "../setting-option";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -178,6 +178,7 @@ function Sidebar({
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
   const { positionSidebar } = usePositionSidebar();
+  const { colorSidebar } = useColorSidebar();
 
   if (collapsible === "none") {
     return (
@@ -230,12 +231,13 @@ function Sidebar({
   }
   return (
     <div
-      className="group relative peer text-sidebar-foreground hidden md:block"
+      className="group relative peer text-sidebar-foreground hidden md:block data-[color=black]:bg-gray-900 data-[color=black]:text-slate-300"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
       data-side={positionSidebar}
       data-slot="sidebar"
+      data-color={colorSidebar}
     >
       {/* This is what handles the sidebar gap on desktop */}
       <div
@@ -289,6 +291,7 @@ function SidebarTrigger({
       size="icon"
       className={cn(
         "size-7 dark:bg-background border dark:border-border dark:hover:bg-sidebar",
+        "group-data-[color=black]:bg-gray-900 group-data-[color=black]:text-slate-300 group-data-[color=black]:border-slate-700 group-data-[color=black]:hover:bg-gray-800 group-data-[color=black]:hover:text-slate-300",
         className,
       )}
       onClick={(event) => {
@@ -428,6 +431,7 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
       data-sidebar="group"
       className={cn(
         "relative flex w-full min-w-0 flex-col group-data-[collapsible=icon]:p-1! p-4 group-data-[side=top]:flex-row group-data-[side=top]:items-center",
+        "group-data-[side=top]:py-0!",
         className,
       )}
       {...props}
@@ -548,39 +552,67 @@ function SidebarMenuButton({
 }: React.ComponentProps<"div"> & {
   asChild?: boolean;
   isActive?: boolean;
-  tooltip?: string | React.ComponentProps<typeof TooltipContent>;
+  tooltip?:
+    | string
+    | {
+        title: string;
+        url: string;
+      }[]
+    | React.ComponentProps<typeof TooltipContent>;
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const Comp = asChild ? Slot : "div";
-  const { isMobile, state } = useSidebar();
-
+  const { state } = useSidebar();
+  const { positionSidebar } = usePositionSidebar();
+  console.log(state, positionSidebar);
   const button = (
     <Comp
       data-slot="sidebar-menu-button"
       data-sidebar="menu-button"
       data-size={size}
       data-active={isActive}
-      className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
+      className={cn(
+        sidebarMenuButtonVariants({ variant, size }),
+        "group-data-[color=black]:hover:bg-slate-800! group-data-[color=black]:hover:text-slate-300!",
+        className,
+      )}
       {...props}
     />
   );
-
   if (!tooltip) {
     return button;
   }
-
+  
   if (typeof tooltip === "string") {
     tooltip = {
       children: tooltip,
     };
+  }else if( Array.isArray(tooltip)){
+    tooltip = {
+      children: (
+        <ContentBox className="flex flex-col gap-2 min-w-40">
+          {tooltip.map((item, index) => (
+            <a
+              key={index}
+              href={item.url}
+              className="text-sidebar-foreground rounded-sm py-1 px-3 hover:bg-slate-50"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item.title}
+            </a>
+          ))}
+        </ContentBox>
+      ),
+    };
   }
   return (
-    <HoverCard>
+    <HoverCard openDelay={100} closeDelay={10}>
       <HoverCardTrigger asChild>{button}</HoverCardTrigger>
       <HoverCardContent
-        side="right"
+        side={positionSidebar === "top" ? "bottom" : "right"}
         align="center"
-        hidden={state === "expanded"}
-        className="bg-white p-2 rounded-xl text-sm"
+        hidden={state === "expanded" && positionSidebar !== "top"}
+        className="bg-white p-1 rounded-xl text-sm"
         {...tooltip}
       ></HoverCardContent>
     </HoverCard>
@@ -730,6 +762,7 @@ function SidebarMenuSubButton({
       className={cn(
         "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground flex min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md h-9 py-2 px-3 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
         "data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground",
+        "group-data-[color=black]:text-gray-300 group-data-[color=black]:hover:text-gray-300 group-data-[color=black]:hover:bg-slate-800",
         size === "sm" && "text-xs",
         size === "md" && "text-sm",
         "group-data-[collapsible=icon]:hidden",
