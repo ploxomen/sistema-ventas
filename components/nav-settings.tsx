@@ -35,7 +35,11 @@ import {
   POSITION_OPTIONS,
   usePositionSidebar,
 } from "@/store/usePositionSidebar";
-import { COLOR_SIDEBAR_OPTIONS, useColorSidebar } from "@/store/useColorSidebar";
+import {
+  COLOR_SIDEBAR_OPTIONS,
+  useColorSidebar,
+} from "@/store/useColorSidebar";
+import { FONTS, useFontFamily } from "@/store/useFontFamily";
 
 export default function NavSettings() {
   const { setTheme, theme } = useTheme();
@@ -45,6 +49,7 @@ export default function NavSettings() {
   const { setPrimaryColor, primaryColor } = useThemeColor();
   const { setPositionSidebar, positionSidebar } = usePositionSidebar();
   const { setColorSidebar, colorSidebar } = useColorSidebar();
+  const { fontFamily, setFontFamily } = useFontFamily();
   const handleChangeTheme = (checked: boolean) =>
     setTheme(checked ? "dark" : "light");
   return (
@@ -107,7 +112,11 @@ export default function NavSettings() {
                 <ContentBox className="flex gap-3">
                   {POSITION_OPTIONS.map((option) => (
                     <ButtonSvg
-                      className={positionSidebar === option.position ? "text-primary" : ""}
+                      className={
+                        positionSidebar === option.position
+                          ? "text-primary"
+                          : ""
+                      }
                       key={option.position}
                       Icon={option.Icon}
                       onClick={(e) => setPositionSidebar(option.position)}
@@ -118,20 +127,19 @@ export default function NavSettings() {
               <ContentBox className="flex gap-3 flex-col">
                 <ButtonBase>Color</ButtonBase>
                 <ContentBox className="flex gap-3">
-                  {
-                    COLOR_SIDEBAR_OPTIONS.map((option) => (
-                      <ButtonSvg
-                        className={`flex-1/2 justify-center text-xs h-14 ${colorSidebar === option.color ? 'border-primary bg-white shadow-lg' : ''} rounded-xl`}
-                        key={option.color}
-                        Icon={option.Icon}
-                        text={option.text}
-                        onClick={() => setColorSidebar(option.color)}
-                        iconProps={{
-                          className: colorSidebar === option.color ? "text-primary" : "",
-                        }}
-                      />
-                    ))
-                  }
+                  {COLOR_SIDEBAR_OPTIONS.map((option) => (
+                    <ButtonSvg
+                      className={`flex-1/2 justify-center text-xs h-14 ${colorSidebar === option.color ? "border-primary bg-white shadow-lg" : ""} rounded-xl`}
+                      key={option.color}
+                      Icon={option.Icon}
+                      text={option.text}
+                      onClick={() => setColorSidebar(option.color)}
+                      iconProps={{
+                        className:
+                          colorSidebar === option.color ? "text-primary" : "",
+                      }}
+                    />
+                  ))}
                 </ContentBox>
               </ContentBox>
             </ContentBox>
@@ -166,38 +174,18 @@ export default function NavSettings() {
               <ContentBox className="flex gap-3 flex-col">
                 <ButtonBase>Tipo de letra</ButtonBase>
                 <ContentBox className="grid grid-cols-2 gap-3">
-                  <ButtonSvg
-                    Icon={CaseSensitiveIcon}
-                    className="flex-col gap-0 py-4"
-                    text="Public Sans"
-                    iconProps={{
-                      className: "text-2xl size-7",
-                    }}
-                  />
-                  <ButtonSvg
-                    Icon={CaseSensitiveIcon}
-                    className="flex-col gap-0 py-4"
-                    text="Public Sans"
-                    iconProps={{
-                      className: "text-2xl size-7",
-                    }}
-                  />
-                  <ButtonSvg
-                    Icon={CaseSensitiveIcon}
-                    className="flex-col gap-0 py-4"
-                    text="Public Sans"
-                    iconProps={{
-                      className: "text-2xl size-7",
-                    }}
-                  />
-                  <ButtonSvg
-                    Icon={CaseSensitiveIcon}
-                    className="flex-col gap-0 py-4"
-                    text="Public Sans"
-                    iconProps={{
-                      className: "text-2xl size-7",
-                    }}
-                  />
+                  {FONTS.map((font) => (
+                    <ButtonSvg
+                      key={font.value}
+                      Icon={CaseSensitiveIcon}
+                      className="flex-col gap-0 py-4"
+                      text={font.label}
+                      onClick={() => setFontFamily(font.value)}
+                      iconProps={{
+                        className: "text-2xl size-7",
+                      }}
+                    />
+                  ))}
                 </ContentBox>
               </ContentBox>
               <ContentBox className="flex flex-col gap-3">

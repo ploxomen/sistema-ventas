@@ -4,6 +4,7 @@ import { colorMap, useThemeColor } from "@/store/useThemeColor";
 import { useEffect } from "react";
 import { useDirectionStore } from "@/store/useDirectionStore";
 import { useContrast } from "@/store/useContrast";
+import { FONT_VARIABLES, useFontFamily } from "@/store/useFontFamily";
 
 export function ThemeProvider({
   children,
@@ -12,6 +13,7 @@ export function ThemeProvider({
   const { isRTL } = useDirectionStore();
   const { isContrast } = useContrast();
   const { primaryColor } = useThemeColor();
+  const { fontFamily } = useFontFamily();
   useEffect(() => {
     document.documentElement.setAttribute("dir", isRTL ? "rtl" : "ltr");
     document.body.classList.toggle(
@@ -22,6 +24,10 @@ export function ThemeProvider({
       "--primary",
       `rgb(${colorMap[primaryColor]})`,
     );
-  }, [primaryColor, isContrast, isRTL]);
+    document.documentElement.style.setProperty(
+      "--font-current",
+      `${FONT_VARIABLES[fontFamily]}`,
+    );
+  }, [primaryColor, isContrast, isRTL, fontFamily]);
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
