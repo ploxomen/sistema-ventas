@@ -45,6 +45,7 @@
 }
 
 :root {
+  --font-current: var(--font-inter);
   --radius: 0.625rem;
   --background: #FCFCFC;
   --background-contrast: #F4F6F8;
@@ -122,6 +123,7 @@
     @apply border-border outline-ring/50;
   }
   body {
+    font-family: var(--font-current), system-ui, sans-serif;
     @apply bg-background text-foreground;
   }
 }
