@@ -178,7 +178,7 @@ export default function NavSettings() {
                     <ButtonSvg
                       key={font.value}
                       Icon={CaseSensitiveIcon}
-                      className="flex-col gap-0 py-4"
+                      className={`flex-col gap-0 py-4 ${fontFamily === font.value ? "border-primary bg-white shadow-lg" : ""} rounded-xl`}
                       text={font.label}
                       onClick={() => setFontFamily(font.value)}
                       iconProps={{
