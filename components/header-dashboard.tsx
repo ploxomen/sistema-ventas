@@ -5,27 +5,30 @@ import NavSettings from "./nav-settings";
 import Header from "./header";
 
 const data = {
-    headquarters : [
-        {
-            name: "Acme Inc",
-            plan: "Enterprise",
-        }
-    ],
-    user: {
-        name: "Jean",
-        email: "jeanpi.jpct@gmail.com",
-        avatar: "/avatars/shadcn.jpg",
-    }
-}
+  headquarters: [
+    {
+      name: "Acme Inc",
+      plan: "Enterprise",
+    },
+  ],
+  user: {
+    name: "Jean",
+    email: "jeanpi.jpct@gmail.com",
+    avatar: "/avatars/shadcn.jpg",
+  },
+};
 
-export default function HeaderDashboard() {   
+export default function HeaderDashboard() {
   return (
     <Header>
       <SidebarHeader>
-        <TeamSwitcher teams={data.headquarters} />
+        <TeamSwitcher
+          teams={data.headquarters}
+          className="group-data-[sidebar-color=black]:hover:bg-slate-700 group-data-[sidebar-color=black]:active:bg-slate-700 group-data-[sidebar-color=black]:!text-white"
+        />
       </SidebarHeader>
       <SidebarUser className="flex gap-2">
-        <NavSettings /> 
+        <NavSettings />
         <NavUser user={data.user} />
       </SidebarUser>
     </Header>

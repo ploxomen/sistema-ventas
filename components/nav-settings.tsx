@@ -55,7 +55,7 @@ export default function NavSettings() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="group-data-[sidebar-color=black]:hover:bg-slate-800">
+        <Button variant="ghost" className="group-data-[sidebar-color=black]:hover:bg-slate-700">
           <Settings className="animate-[spin_3s_linear_infinite] group-data-[sidebar-color=black]:text-slate-500 size-5" />
         </Button>
       </SheetTrigger>
