@@ -231,7 +231,7 @@ function Sidebar({
   }
   return (
     <div
-      className="group relative peer text-sidebar-foreground hidden md:block data-[color=black]:bg-gray-900 data-[color=black]:text-slate-300"
+      className="group relative peer text-sidebar-foreground hidden md:block data-[side=top]:data-[color=black]:bg-[#21272c] data-[color=black]:text-slate-300"
       data-state={state}
       data-collapsible={state === "collapsed" ? collapsible : ""}
       data-variant={variant}
@@ -572,7 +572,7 @@ function SidebarMenuButton({
       data-active={isActive}
       className={cn(
         sidebarMenuButtonVariants({ variant, size }),
-        "group-data-[color=black]:hover:bg-slate-800! group-data-[color=black]:hover:text-slate-300!",
+        "group-data-[color=black]:hover:bg-gray-700/40! group-data-[color=black]:hover:text-slate-300!",
         className,
       )}
       {...props}

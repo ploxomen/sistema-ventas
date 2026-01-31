@@ -6,7 +6,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
   const { colorSidebar} = useColorSidebar();
   return (
     <header
-      className={`group flex items-center px-10 data-[slider=right]:flex-row-reverse data-[sidebar-color=black]:bg-slate-800 shrink-0 justify-between gap-2 transition-[width,height] ease-linear`}
+      className={`group flex items-center px-10 data-[slider=right]:flex-row-reverse data-[slider=top]:data-[sidebar-color=black]:bg-[#141A21] shrink-0 justify-between gap-2 transition-[width,height] ease-linear`}
       data-slider={positionSidebar}
       data-sidebar-color={colorSidebar}>
       {children}
