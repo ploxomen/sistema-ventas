@@ -7,6 +7,7 @@ import { SwitchProps } from "@/types/inputs";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "./ui/slider";
 import { ButtonHTMLAttributes, useState } from "react";
+import { useFontSize } from "@/store/useFontSize";
 interface IconProps {
   icon: LucideIcon;
 }
@@ -74,17 +75,25 @@ export function ButtonBase({
     </button>
   );
 }
-export function SliderFont({ valueInitial }: { valueInitial: number }) {
-  const [value, setValue] = useState([valueInitial]);
+export function SliderFont({
+  min,
+  max,
+  step,
+}: {
+  min: number;
+  max: number;
+  step: number;
+}) {
+  const { fontSize, setFontSize } = useFontSize();
   return (
     <Slider
-      min={12}
-      max={20}
+      min={min}
+      max={max}
       complementValue="px"
-      step={1}
-      value={value}
+      step={step}
+      value={[fontSize]}
       className="mx-auto w-full max-w-xs"
-      onValueChange={setValue}
+      onValueChange={e => setFontSize(e[0])}
     />
   );
 }
@@ -100,7 +109,11 @@ export function ButtonSvg({
       className={cn("text-slate-500 flex gap-3 items-center", className)}
       {...props}
     >
-      <Icon aria-hidden="true" className={iconProps?.className} {...iconProps} />
+      <Icon
+        aria-hidden="true"
+        className={iconProps?.className}
+        {...iconProps}
+      />
       {text && <span>{text}</span>}
     </ButtonBase>
   );

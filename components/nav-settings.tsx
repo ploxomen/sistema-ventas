@@ -190,7 +190,7 @@ export default function NavSettings() {
               </ContentBox>
               <ContentBox className="flex flex-col gap-3">
                 <ButtonBase>Tamaño</ButtonBase>
-                <SliderFont valueInitial={20} />
+                <SliderFont min={12} max={20} step={1}/>
               </ContentBox>
             </ContentBox>
           </ContentSettignBox>
