@@ -7,15 +7,17 @@ export default function ContentTableFilter({
   urlExportPdf = "",
   columnsView = [],
   columnsFilter = [],
+  children
 }: {
   urlExportExcel?: string;
   urlExportPdf?: string;
   columnsView?: ColumnsProps[];
   columnsFilter?: FilterProps[];
+  children?: React.ReactNode;
 }) {
   return (
     <ContentBox className="mt-10 shadow-md">
-      <Filter></Filter>
+      <Filter>{children}</Filter>
     </ContentBox>
   );
 }

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
-import { SwitchProps } from "@/types/inputs";
+import { SwitchProps } from "@/types/ui/inputs";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "./ui/slider";
 import { useFontSize } from "@/store/useFontSize";
