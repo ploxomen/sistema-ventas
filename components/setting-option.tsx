@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { SwitchProps } from "@/types/inputs";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "./ui/slider";
-import { ButtonHTMLAttributes, useState } from "react";
 import { useFontSize } from "@/store/useFontSize";
 interface IconProps {
   icon: LucideIcon;
