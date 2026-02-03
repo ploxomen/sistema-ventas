@@ -1,4 +1,5 @@
 import BreadcrumbSeparatorNavegation from '@/components/breadcrumd-separator-navigation'
+import ContentTableFilter from '@/components/dashboard/content-table-filter'
 import { ContentBox } from '@/components/setting-option'
 import TitleModule from '@/components/title-module'
 import { Button } from '@/components/ui/button'
@@ -8,6 +9,7 @@ import React from 'react'
 
 export default function UserList() {
   return (
+    <>
     <ContentBox className='flex gap-4'>
         <ContentBox className='flex flex-1 flex-col gap-4'>
           <TitleModule title='Lista de usuarios'/>
@@ -18,5 +20,7 @@ export default function UserList() {
           <strong>Nuevo usuario</strong>
         </Button>
     </ContentBox>
+    <ContentTableFilter></ContentTableFilter>
+    </>
   )
 }
