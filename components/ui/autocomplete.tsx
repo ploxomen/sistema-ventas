@@ -34,13 +34,13 @@ export default function SelectOptions({
   return (
     <Popover>
       <PopoverTrigger
-        className="group relative"
+        className="group relative w-full"
         data-selected={selectedOptions}
       >
         <ContentBox
           role="button"
           className={cn(
-            "pr-8 py-4 pl-3 border-1 w-40 h-14 rounded-md text-left group-data-[state=open]:border-2 cursor-pointer group-data-[state=open]:border-black hover:border-black",
+            "pr-8 py-4 pl-3 border-1 w-full h-14 rounded-md text-left group-data-[state=open]:border-2 cursor-pointer group-data-[state=open]:border-black hover:border-black",
             className,
           )}
         >
