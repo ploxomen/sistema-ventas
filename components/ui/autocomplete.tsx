@@ -11,9 +11,11 @@ import { cn } from "@/lib/utils";
 export default function SelectOptions({
   label = "",
   initialOptions = [],
+  className = "",
 }: {
   label?: string;
   initialOptions?: SelectFilterProps[];
+  className?: string;
 }) {
   const [options, setOptions] = useState<SelectFilterProps[]>(initialOptions);
   const handleSelectOption = (optionName: string) => {
@@ -24,19 +26,26 @@ export default function SelectOptions({
     setOptions(updatedOptions);
   };
   const selectedOptions = options.some((option) => option.selected === true);
-  const textOptionsSelected = options
-    .filter((option) => option.selected)
-    .map((option) => option.name)
-    .join(", ") || "";
+  const textOptionsSelected =
+    options
+      .filter((option) => option.selected)
+      .map((option) => option.name)
+      .join(", ") || "";
   return (
     <Popover>
       <PopoverTrigger
         className="group relative"
         data-selected={selectedOptions}
       >
-        <ContentBox className="pr-8 py-4 pl-3 border-1 w-40 h-14 rounded-md text-left">
-          <span className="block bg-white transition-all ease-in-out rounded-md absolute group-data-[state=open]:scale-75 group-data-[state=open]:left-0 group-data-[state=open]:top-0  group-data-[selected=true]:scale-75 group-data-[selected=true]:left-0 group-data-[selected=true]:top-0 top-1/2 -translate-y-1/2 px-1.5 left-3 text-sm text-muted-foreground">
-            {label} 
+        <ContentBox
+          role="button"
+          className={cn(
+            "pr-8 py-4 pl-3 border-1 w-40 h-14 rounded-md text-left group-data-[state=open]:border-2 cursor-pointer group-data-[state=open]:border-black hover:border-black",
+            className,
+          )}
+        >
+          <span className="block bg-white transition-all ease-in-out rounded-md absolute group-data-[state=open]:scale-[0.85] group-data-[state=open]:left-1 group-data-[state=open]:top-0 group-data-[state=open]:font-semibold   group-data-[selected=true]:font-semibold group-data-[selected=true]:scale-[0.85] dark:bg-transparent group-data-[selected=true]:left-1 group-data-[selected=true]:top-0 top-1/2 -translate-y-1/2 px-1.5 left-3 text-sm text-muted-foreground">
+            {label}
           </span>
           {textOptionsSelected && (
             <span className="block text-sm text-muted-foreground truncate max-w-full">

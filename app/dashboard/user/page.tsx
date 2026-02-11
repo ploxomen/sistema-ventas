@@ -1,8 +1,7 @@
 import BreadcrumbSeparatorNavegation from "@/components/breadcrumd-separator-navigation";
-import ContentTableFilter from "@/components/dashboard/content-table-filter";
+import ListFilter from "@/components/dashboard/user/ListFilter";
 import { ContentBox } from "@/components/setting-option";
 import TitleModule from "@/components/title-module";
-import SelectOptions from "@/components/ui/autocomplete";
 import { Button } from "@/components/ui/button";
 import { navigationUserList } from "@/data/user/navigation";
 import { PlusIcon } from "lucide-react";
@@ -21,16 +20,7 @@ export default function UserList() {
           <strong>Nuevo usuario</strong>
         </Button>
       </ContentBox>
-      <ContentTableFilter>
-        <SelectOptions
-          label="Roles"
-          initialOptions={[
-            { name: "Administrador", selected: false },
-            { name: "Usuario", selected: false },
-            { name: "Invitado", selected: false },
-          ]}
-        />
-      </ContentTableFilter>
+      <ListFilter />
     </>
   );
 }
