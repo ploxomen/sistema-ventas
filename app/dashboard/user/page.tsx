@@ -1,5 +1,7 @@
 import BreadcrumbSeparatorNavegation from "@/components/breadcrumd-separator-navigation";
+import ContentFilter from "@/components/dashboard/ContentFilter";
 import ListFilter from "@/components/dashboard/user/ListFilter";
+import ListTable from "@/components/dashboard/user/ListTable";
 import { ContentBox } from "@/components/setting-option";
 import TitleModule from "@/components/title-module";
 import { Button } from "@/components/ui/button";
@@ -20,7 +22,10 @@ export default function UserList() {
           <strong>Nuevo usuario</strong>
         </Button>
       </ContentBox>
-      <ListFilter />
+      <ContentFilter>
+        <ListFilter />
+        <ListTable />
+      </ContentFilter>
     </>
   );
 }

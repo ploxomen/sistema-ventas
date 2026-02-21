@@ -16,7 +16,7 @@ import { ArrowDownToLineIcon, EllipsisVerticalIcon, PrinterIcon } from "lucide-r
 
 export default function ListFilter() {
   return (
-    <ContentFilter>
+    <>
       <ContentBox className="px-5">
         <Tabs>
           <TabsList variant="line" className="gap-10">
@@ -69,6 +69,6 @@ export default function ListFilter() {
           </DropdownMenu>
         </ContentBox>
       </ContentBox>
-    </ContentFilter>
+    </>
   );
 }
