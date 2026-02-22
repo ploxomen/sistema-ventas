@@ -16,7 +16,7 @@ export default function ListTable() {
       render(value, row) {
         return (
           <img
-            className="size-12 rounded-full"
+            className="size-10 rounded-full"
             src={`https://ui-avatars.com/api/?name=${row?.name}${row?.last_name}&size=128`}
           />
         );

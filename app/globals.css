@@ -5,6 +5,7 @@
 
 @theme inline {
   --color-background: var(--background);
+  --color-thead: var(--background-thead);
   --color-selected: var(--selected);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -49,6 +50,7 @@
   --font-current: var(--font-inter);
   --radius: 0.625rem;
   --background: #FCFCFC;
+  --background-thead:#f5f6f8;
   --background-contrast: #F4F6F8;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
