@@ -21,9 +21,9 @@ export default function BreadcrumbSeparatorNavegation({
   return (
     <Breadcrumb>
       <BreadcrumbList>
-          {navigations.map((navigation, index) => (
-            <>
-            <BreadcrumbItem key={index}>
+        {navigations.map((navigation, index) => (
+          <React.Fragment key={index}>
+            <BreadcrumbItem>
               {navigation.url ? (
                 <BreadcrumbLink asChild>
                   <Link href={navigation.url}>{navigation.title}</Link>
@@ -37,8 +37,8 @@ export default function BreadcrumbSeparatorNavegation({
                 <DotIcon className="h-4 w-4" />
               </BreadcrumbSeparator>
             )}
-            </>
-          ))}
+          </React.Fragment>
+        ))}
       </BreadcrumbList>
     </Breadcrumb>
   );
