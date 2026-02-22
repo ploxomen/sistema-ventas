@@ -1,5 +1,6 @@
 import React from "react";
-import TableDashboard, { Columns } from "../TableDashboard";
+import TableDashboard from "../TableDashboard";
+import { Columns } from "@/types/dashboard/table";
 
 interface User {
   id: number;
@@ -30,14 +31,14 @@ export default function ListTable() {
       column: "last_name",
     },
   ];
-  const cells = [
+  const cells: User[] = [
     {
       id: 1,
       name: "Juan",
       last_name: "Pepe",
     },
     {
-      id:2,
+      id: 2,
       name: "Lucas",
       last_name: "Mendoza",
     },

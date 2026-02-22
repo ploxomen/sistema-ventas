@@ -7,23 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-type CellValue = string | number | boolean | null | undefined;
-
-export type Columns<T> = {
-  name: string;
-  column: string;
-  sorteable?: boolean;
-  className?: string;
-  render?: (value: CellValue, row?: T) => React.ReactNode;
-};
-
-type Row<T> = T;
-
-interface TableProps<T> {
-  columns: Columns<T>[];
-  cells: Row<T>[];
-}
-
+import { TableProps } from "@/types/dashboard/table";
 export default function TableDashboard<T extends Record<string,any>>({
   columns = [],
   cells = [],
