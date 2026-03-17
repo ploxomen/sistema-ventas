@@ -27,14 +27,15 @@ export function ThemeProvider({
       "--primary",
       `rgb(${colorMap[primaryColor]})`,
     );
-    document.documentElement.style.setProperty(
-      "font-size",
-      `${fontSize}px`,
-    );
+    document.documentElement.style.setProperty("font-size", `${fontSize}px`);
     document.documentElement.style.setProperty(
       "--font-current",
       `${FONT_VARIABLES[fontFamily]}`,
     );
   }, [primaryColor, isContrast, isRTL, fontFamily, fontSize]);
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+  return (
+    <NextThemesProvider  {...props}>
+      {children}
+    </NextThemesProvider>
+  );
 }
