@@ -3,13 +3,12 @@ import SubTitleCard from "../SubTitleCard";
 import { Apple } from "lucide-react";
 import InputCustom from "@/components/ui/input-custom";
 import { ContentBox } from "@/components/setting-option";
-import { AutocompleteItem } from "@heroui/autocomplete";
 import { MyAutocomplete } from "@/components/ui/autocomplete-custom";
 import TextareaCustom from "@/components/ui/textarea-custom";
 export default function FormProduct() {
   return (
     <form>
-      <Card className="gap-1">
+      <Card className="gap-1 mb-5">
         <CardHeader>
           <SubTitleCard
             title="Datos generales"
