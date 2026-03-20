@@ -1,5 +1,8 @@
-export type CategorieListProps = {
-  id: number | null;
+export type Category = {
+  id: number;
   categorie: string;
-  sub_categories: CategorieListProps[];
+  parent_id: number | null;
 };
+export interface CategoryNode extends Category {
+  children: CategoryNode[];
+}
