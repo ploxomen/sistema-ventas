@@ -7,6 +7,7 @@ import { CategoryNode } from "@/data/categorie/crud";
 import EmptyList from "../empty-list-categories";
 import TreeCategory from "./tree-category";
 import { memo } from "react";
+import { Accordion } from "@heroui/accordion";
 
 const ListCategories = ({
   tree = [],
@@ -29,7 +30,7 @@ const ListCategories = ({
         {!tree.length ? (
           <EmptyList description="No se encontraron categorías para listar" />
         ) : (
-          <ul>
+          <Accordion selectionMode="multiple" >
             {tree.map((node) => (
               <TreeCategory
                 key={node.id}
@@ -37,7 +38,7 @@ const ListCategories = ({
                 onAddChild={addChild}
               />
             ))}
-          </ul>
+          </Accordion>
         )}
       </CardContent>
     </Card>
