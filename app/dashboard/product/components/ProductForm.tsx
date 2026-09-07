@@ -1,5 +1,4 @@
 "use client";
-
 import { ContentBox } from "@/components/setting-option";
 import { useProductForm } from "../hooks/useProductForm";
 import {
@@ -8,7 +7,7 @@ import {
   ProductFormData,
   Subcategory,
 } from "../types/product";
-import ProductBasicInfo, { ProductBasicInfoType } from "./ProductBasicInfo";
+import ProductBasicInfo from "./ProductBasicInfo";
 import ProductImages from "./ProductImages";
 import ProductPricing from "./ProductPricing";
 import ProductExpirationLots from "./ProductExpirationLots";
