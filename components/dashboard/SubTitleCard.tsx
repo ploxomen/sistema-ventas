@@ -1,17 +1,20 @@
 import { LucideIcon } from "lucide-react";
 import { ContentBox } from "../setting-option";
+import { cn } from "@/lib/utils";
 type PoptSubTitleCard = {
   title: string;
   description?: string;
   icon?: LucideIcon;
+  className ?: string
 };
 export default function SubTitleCard({
   title,
   description,
   icon: Icon,
+  className
 }: PoptSubTitleCard) {
   return (
-    <ContentBox className="flex gap-1 flex-col">
+    <ContentBox className={cn("flex gap-1 flex-col", className)}>
       <ContentBox className="flex gap-1 font-bold items-center">
         {Icon && <Icon className="text-primary" size={20} />}
         <h2 className="text-primary text-lg">{title}</h2>

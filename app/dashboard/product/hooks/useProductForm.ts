@@ -37,6 +37,7 @@ export function useProductForm(initialData?: Partial<ProductFormData>) {
       url: URL.createObjectURL(file),
       isPrimary: false,
     }));
+    console.log(newImages);
     setForm((current) => {
       const images = [...current.images, ...newImages];
       if (!images.some((image) => image.isPrimary) && images.length > 0) {
@@ -92,9 +93,11 @@ export function useProductForm(initialData?: Partial<ProductFormData>) {
       ),
     }));
   };
-  const totalLotStock = useMemo(() => {
-    form.lots.reduce((total, lot) => total + Number(lot.quantity || 0), 0);
-  }, [form.lots]);
+  const totalLotStock = useMemo(
+    () =>
+      form.lots.reduce((total, lot) => total + Number(lot.quantity || 0), 0),
+    [form.lots],
+  );
   return {
     form,
     setForm,
