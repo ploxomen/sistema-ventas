@@ -13,6 +13,8 @@ import { useDataTable } from "@/hooks/tables/useDataTable";
 import { Category } from "@/types/category";
 import { createCategoryColumns } from "./CategoryColumns";
 import { TableFilter } from "@/types/table";
+import { useDisclosure } from "@heroui/react";
+import CategoryModal from "./CategoryModal";
 interface Props {
   onCreate?: () => void;
 
@@ -35,6 +37,7 @@ export function CategoryManager({
     (category: Category, search: string) => {},
     [],
   );
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const table = useDataTable<Category>({
     initialPageSize: 10,
@@ -69,30 +72,34 @@ export function CategoryManager({
       }),
     [onEdit, onDelete, onCreateSubcategory],
   );
+
   return (
-    <div className="space-y-5">
-      <DataTableToolbar
-        search={table.search}
-        onSearchChange={table.setSearch}
-        filters={filters}
-        onFilterChange={table.setFilter}
-        onClearFilters={table.clearFilters}
-        createLabel="Nueva categoría"
-        onCreate={() => {
-          // abrir modal
-        }}
-      />
+    <>
+      <div className="space-y-5">
+        <DataTableToolbar
+          search={table.search}
+          onSearchChange={table.setSearch}
+          filters={filters}
+          onFilterChange={table.setFilter}
+          onClearFilters={table.clearFilters}
+          createLabel="Nueva categoría"
+          onCreate={() => {
+            onOpen();
+          }}
+        />
 
-      <DataTable data={table.data} columns={columns} />
+        <DataTable data={table.data} columns={columns} />
 
-      <DataTablePagination
-        page={table.page}
-        totalPages={table.totalPages}
-        pageSize={table.totalPages}
-        totalItems={table.total}
-        onPageChange={table.setPage}
-        onPageSizeChange={table.setPageSize}
-      />
-    </div>
+        <DataTablePagination
+          page={table.page}
+          totalPages={table.totalPages}
+          pageSize={table.totalPages}
+          totalItems={table.total}
+          onPageChange={table.setPage}
+          onPageSizeChange={table.setPageSize}
+        />
+      </div>
+      <CategoryModal isOpen={isOpen} onOpenChange={onOpenChange} />
+    </>
   );
 }
