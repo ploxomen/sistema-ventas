@@ -5,7 +5,7 @@ import { Button, Input, Select, SelectItem } from "@heroui/react";
 import { Filter, Plus, RotateCcw, Search } from "lucide-react";
 
 import type { TableFilter } from "@/types/table";
-import InputCustom from "../input-custom";
+import InputCustom, { SelectCustom } from "../input-custom";
 
 interface Props {
   search: string;
@@ -30,10 +30,11 @@ export function DataTableToolbar({
   onCreate,
 }: Props) {
   return (
-    <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-      <div className="flex flex-1 flex-col gap-3 md:flex-row">
+    <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between my-5">
+      <div className="grid flex-1 items-center gap-3 grid-cols-12">
         <InputCustom
-          className="max-w-md"
+          label="Buscar"
+          className="col-span-full md:col-span-6"
           placeholder="Buscar..."
           value={search}
           onValueChange={onSearchChange}
@@ -43,11 +44,10 @@ export function DataTableToolbar({
         />
 
         {filters.map((filter) => (
-          <Select
+          <SelectCustom
             key={filter.key}
-            labelPlacement="outside-top"
             placeholder="seleccione una opción"
-            className="w-full md:w-48"
+            className={filter.className}
             label={filter.label}
             selectionMode="multiple"
             selectedKeys={new Set(activeFilters[filter.key] ?? [])}
@@ -58,10 +58,12 @@ export function DataTableToolbar({
             {filter.options.map((option) => (
               <SelectItem key={option.value}>{option.label}</SelectItem>
             ))}
-          </Select>
+          </SelectCustom>
         ))}
 
-        {/* {onClearFilters && (
+        
+      </div>
+        {onClearFilters && (
           <Button
             variant="flat"
             startContent={<RotateCcw size={16} />}
@@ -69,9 +71,7 @@ export function DataTableToolbar({
           >
             Limpiar
           </Button>
-        )} */}
-      </div>
-
+        )}
       {onCreate && (
         <Button
           color="primary"

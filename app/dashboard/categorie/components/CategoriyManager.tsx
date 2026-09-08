@@ -12,14 +12,15 @@ import { useDataTable } from "@/hooks/tables/useDataTable";
 
 import { Category } from "@/types/category";
 import { createCategoryColumns } from "./CategoryColumns";
+import { TableFilter } from "@/types/table";
 interface Props {
-  onCreate ?: () => void;
+  onCreate?: () => void;
 
-  onEdit ?: (category: Category) => void;
+  onEdit?: (category: Category) => void;
 
-  onDelete ?: (category: Category) => void;
+  onDelete?: (category: Category) => void;
 
-  onCreateSubcategory ?: (category: Category) => void;
+  onCreateSubcategory?: (category: Category) => void;
 }
 export function CategoryManager({
   onCreate,
@@ -39,11 +40,12 @@ export function CategoryManager({
     initialPageSize: 10,
   });
 
-  const filters = useMemo(
+  const filters = useMemo<TableFilter[]>(
     () => [
       {
         key: "status",
         label: "Estado",
+        className: "col-span-full md:col-span-6",
         options: [
           {
             label: "Activo",

@@ -17,6 +17,7 @@ export interface TableFilterOption {
 export interface TableFilter {
   key: string;
   label: string;
+  className?: string;
   options: TableFilterOption[];
 }
 
