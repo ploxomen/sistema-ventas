@@ -3,6 +3,7 @@ import FormNewCategoriePrincipal from "@/components/dashboard/categorie/form-new
 import { ContentBox } from "@/components/setting-option";
 import TitleModule from "@/components/title-module";
 import { navigationCategories } from "@/data/categorie/navigation";
+import { CategoryManager } from "./components/CategoriyManager";
 
 export default function Categorie() {
   return (
@@ -11,7 +12,7 @@ export default function Categorie() {
         <TitleModule title="Categorías" />
         <BreadcrumbSeparatorNavegation navigations={navigationCategories} />
       </ContentBox>
-      <FormNewCategoriePrincipal />
+      <CategoryManager />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { apiAxios } from "@/lib/apiAxios";
 import type { ApiListResponse } from "@/types/api";
 import type { DataTableParams } from "@/types/table";
 interface UseDataTableOptions {
-  endpoint: string;
+  endpoint ?: string;
   initialPageSize?: number;
   initialSearch?: string;
   initialSortBy?: string;
