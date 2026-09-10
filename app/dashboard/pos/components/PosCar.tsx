@@ -1,10 +1,14 @@
 "use client";
 import { ContentBox } from "@/components/setting-option";
-import { Button, Kbd } from "@heroui/react";
+import { Button, Kbd, useDisclosure } from "@heroui/react";
 import { ChevronRight, ShoppingBagIcon, UserIcon, Wallet } from "lucide-react";
 import React from "react";
 
-export default function PosCar() {
+interface Props {
+    openCar : () => void
+}
+export default function PosCar({openCar} : Props) {
+
   return (
     <aside className="w-[430px] bg-white border-l border-slate-200 flex flex-col rounded-2xl shrink-0">
       <ContentBox className="p-5 border-b border-slate-200 flex gap-2">
@@ -75,6 +79,7 @@ export default function PosCar() {
           color="primary"
           size="lg"
           fullWidth
+          onPress={openCar}
         >
           <Wallet size={24} />
           Cobrar

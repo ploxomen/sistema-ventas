@@ -1,6 +1,7 @@
 import { ContentBox } from "@/components/setting-option";
 import InputCustom from "@/components/ui/input-custom";
 import TextareaCustom from "@/components/ui/textarea-custom";
+import { PropsModalHeroUI } from "@/types/global";
 import {
     Button,
   Modal,
@@ -10,11 +11,8 @@ import {
   ModalHeader,
 } from "@heroui/react";
 import { BoxIcon, PlusIcon, Trash } from "lucide-react";
-interface Props {
-  isOpen: boolean;
-  onOpenChange: () => void;
-}
-export default function CategoryModal({ isOpen, onOpenChange }: Props) {
+
+export default function CategoryModal({ isOpen, onOpenChange }: PropsModalHeroUI) {
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
       <ModalContent>
