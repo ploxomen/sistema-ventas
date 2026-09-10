@@ -1,0 +1,90 @@
+"use client";
+import InputCustom from "@/components/ui/input-custom";
+import { Button, Checkbox } from "@heroui/react";
+import { Lock, User, Wine } from "lucide-react";
+import Link from "next/link";
+
+export default function SectionForm() {
+  return (
+    <section className="flex w-full items-center justify-center bg-[#f7f6f3] px-5 py-10 lg:w-[45%]">
+      <div className="w-full max-w-md">
+        <div className="mb-10 flex items-center gap-3 lg:hidden">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-500">
+            <Wine size={24} />
+          </div>
+          <div>
+            <p className="font-bold text-slate-900"> HEUSEIN </p>
+            <p className="text-xs text-slate-500"> Intranet </p>
+          </div>
+        </div>
+        <div className="mb-8">
+          <span className="text-xs font-bold uppercase tracking-[.2em] text-amber-600">
+            Acceso interno
+          </span>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">
+            Bienvenido de nuevo
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-500">
+            Ingresa tus credenciales para acceder al sistema de gestión.
+          </p>
+        </div>
+        <form className="space-y-5">
+          <div className="text-slate-400 mb-5">
+            <InputCustom
+              size="lg"
+              label="Usuario o correo electrónico"
+              startContent={<User size={24} />}
+            />
+          </div>
+          <div className="mb-5 text-slate-400">
+            <InputCustom
+              size="lg"
+              label="Contraseña"
+              startContent={<Lock size={24} />}
+            />
+          </div>
+          <div className="my-5 flex gap-3 justify-between items-center">
+            <Checkbox size="md">Recordame accesos</Checkbox>
+            <a href="#" className="text-primary text-sm">¿Olvidaste tu contraseña?</a>
+          </div>
+          <div>
+            <Button size="lg" fullWidth color="primary">
+              Iniciar sesión
+            </Button>
+          </div>
+        </form>
+        <div className="my-8 flex items-center gap-4">
+          <div className="h-px flex-1 bg-slate-200"></div>
+          <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+            Seguridad
+          </span>
+          <div className="h-px flex-1 bg-slate-200"></div>
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-4">
+          <div className="flex gap-3">
+            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-amber-50">
+              <Lock size={20} className="text-amber-500"/>
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-slate-700">
+                Acceso restringido
+              </p>
+              <p className="mt-1 text-xs leading-5 text-slate-500">
+                Este sistema es de uso exclusivo para personal autorizado de la
+                empresa.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 text-center">
+          <p className="text-xs text-slate-400">
+            HEUSEIN · Intranet empresarial
+          </p>
+          <p className="mt-1 text-[10px] text-slate-300">
+            © 2026 Todos los derechos reservados
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
