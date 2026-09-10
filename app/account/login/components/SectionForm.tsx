@@ -29,18 +29,24 @@ export default function SectionForm() {
           </p>
         </div>
         <form className="space-y-5">
-          <div className="text-slate-400 mb-5">
+          <div className=" mb-5">
             <InputCustom
               size="lg"
+              type="text"
               label="Usuario o correo electrónico"
-              startContent={<User size={24} />}
+              isRequired
+              className="text-slate-700"
+              startContent={<User size={24} className="text-slate-400"/>}
             />
           </div>
-          <div className="mb-5 text-slate-400">
+          <div className="mb-5">
             <InputCustom
               size="lg"
+              type="password"
+              isRequired
+              className="text-slate-700"
               label="Contraseña"
-              startContent={<Lock size={24} />}
+              startContent={<Lock size={24} className="text-slate-400" />}
             />
           </div>
           <div className="my-5 flex gap-3 justify-between items-center">
@@ -48,7 +54,7 @@ export default function SectionForm() {
             <a href="#" className="text-primary text-sm">¿Olvidaste tu contraseña?</a>
           </div>
           <div>
-            <Button size="lg" fullWidth color="primary">
+            <Button size="lg" type="submit" fullWidth color="primary">
               Iniciar sesión
             </Button>
           </div>
