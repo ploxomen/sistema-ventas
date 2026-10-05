@@ -8,15 +8,11 @@ import type { Category } from "@/types/category";
 
 interface CategoryColumnActions {
   onEdit ?: (category: Category) => void;
-
-  onCreateSubcategory ?: (category: Category) => void;
-
   onDelete ?: (category: Category) => void;
 }
 
 export function createCategoryColumns({
   onEdit,
-  onCreateSubcategory,
   onDelete,
 }: CategoryColumnActions): TableColumn<Category>[] {
   return [
@@ -27,13 +23,7 @@ export function createCategoryColumns({
 
       render: (category) => (
         <div>
-          <p className="font-medium">{category.category_name}</p>
-
-          {category.category_description && (
-            <p className="text-xs text-default-400">
-              {category.category_description}
-            </p>
-          )}
+          <p className="font-medium">{category.name}</p>
         </div>
       ),
     },
@@ -44,22 +34,7 @@ export function createCategoryColumns({
 
       render: (category) => (
         <Chip size="sm" variant="flat">
-          {category.subcategories.length}
-        </Chip>
-      ),
-    },
-
-    {
-      key: "isActive",
-      label: "ESTADO",
-
-      render: (category) => (
-        <Chip
-          size="sm"
-          color={category.category_status ? "success" : "default"}
-          variant="flat"
-        >
-          {category.category_status ? "Activo" : "Inactivo"}
+          {category?.subCategories?.length} subcategorías
         </Chip>
       ),
     },
@@ -72,19 +47,10 @@ export function createCategoryColumns({
       render: (category) => (
         <div className="flex justify-end gap-1">
           <Button
-            size="sm"
-            variant="light"
-            startContent={<Plus size={16} />}
-            onPress={() => onCreateSubcategory(category)}
-          >
-            Subcategoría
-          </Button>
-
-          <Button
             isIconOnly
             size="sm"
             variant="light"
-            onPress={() => onEdit(category)}
+            onPress={() => onEdit(category.id)}
           >
             <Edit size={16} />
           </Button>
@@ -94,7 +60,7 @@ export function createCategoryColumns({
             size="sm"
             color="danger"
             variant="light"
-            onPress={() => onDelete(category)}
+            onPress={() => onDelete(category.id)}
           >
             <Trash2 size={16} />
           </Button>

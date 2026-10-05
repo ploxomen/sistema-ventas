@@ -8,3 +8,8 @@ export interface ApiListResponse<T>{
     data : T[],
     pagination : ApiPagination
 }
+
+export interface Timestamps {
+    createdAt ?: Date,
+    updatedAt ?: Date
+}

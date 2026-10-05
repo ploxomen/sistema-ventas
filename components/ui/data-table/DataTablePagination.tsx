@@ -40,6 +40,7 @@ export function DataTablePagination({
   onPageChange,
   onPageSizeChange,
 }: Props) {
+  console.log(pageSize)
   return (
     <div className="flex flex-col gap-4 border-t border-default-200 pt-4 sm:flex-row sm:items-center sm:justify-between">
 
@@ -53,26 +54,19 @@ export function DataTablePagination({
           aria-label="Registros por página"
           className="w-32"
           size="sm"
-          selectedKeys={[
-            String(pageSize),
-          ]}
-          onSelectionChange={(
-            keys
-          ) => {
-            const value =
-              Array.from(keys)[0];
-
-            if (value) {
-              onPageSizeChange(
-                Number(value)
-              );
+          selectedKeys={new Set([String(pageSize)])}
+          onSelectionChange={(keys) => {
+            const selectedValue = Array.from(keys)[0];
+            if (selectedValue) {
+              onPageSizeChange(Number(selectedValue));
             }
           }}
         >
           {PAGE_SIZE_OPTIONS.map(
             (size) => (
               <SelectItem
-                key={size}
+                key={String(size)}
+                textValue={`${size} / página`}
               >
                 {size} / página
               </SelectItem>

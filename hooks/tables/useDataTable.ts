@@ -13,7 +13,7 @@ interface UseDataTableOptions {
 }
 
 export function useDataTable<T>({
-  endpoint,
+  endpoint = "",
   initialPageSize = 10,
   initialSearch = "",
   initialSortBy,
@@ -44,7 +44,6 @@ export function useDataTable<T>({
         search: search.trim() || undefined,
         sortBy,
         sortDirection,
-
         filters,
       };
       const response = await apiAxios.get<ApiListResponse<T>>(endpoint, {
@@ -147,6 +146,7 @@ export function useDataTable<T>({
 
   return {
     data,
+    setData,
     loading,
     error,
     page,

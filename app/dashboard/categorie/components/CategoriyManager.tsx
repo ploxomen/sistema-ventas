@@ -1,7 +1,5 @@
 "use client";
-
 import { useCallback, useMemo } from "react";
-
 import {
   DataTable,
   DataTablePagination,
@@ -9,7 +7,6 @@ import {
 } from "@/components/ui/data-table";
 
 import { useDataTable } from "@/hooks/tables/useDataTable";
-
 import { Category } from "@/types/category";
 import { createCategoryColumns } from "./CategoryColumns";
 import { TableFilter } from "@/types/table";
@@ -41,34 +38,14 @@ export function CategoryManager({
 
   const table = useDataTable<Category>({
     initialPageSize: 10,
+    endpoint : "categories"
   });
 
-  const filters = useMemo<TableFilter[]>(
-    () => [
-      {
-        key: "status",
-        label: "Estado",
-        className: "col-span-full md:col-span-6",
-        options: [
-          {
-            label: "Activo",
-            value: "active",
-          },
-          {
-            label: "Inactivo",
-            value: "inactive",
-          },
-        ],
-      },
-    ],
-    [],
-  );
   const columns = useMemo(
     () =>
       createCategoryColumns({
         onEdit,
         onDelete,
-        onCreateSubcategory,
       }),
     [onEdit, onDelete, onCreateSubcategory],
   );
@@ -79,7 +56,6 @@ export function CategoryManager({
         <DataTableToolbar
           search={table.search}
           onSearchChange={table.setSearch}
-          filters={filters}
           onFilterChange={table.setFilter}
           onClearFilters={table.clearFilters}
           createLabel="Nueva categoría"
@@ -93,13 +69,13 @@ export function CategoryManager({
         <DataTablePagination
           page={table.page}
           totalPages={table.totalPages}
-          pageSize={table.totalPages}
+          pageSize={table.limit}
           totalItems={table.total}
           onPageChange={table.setPage}
           onPageSizeChange={table.setPageSize}
         />
       </div>
-      <CategoryModal isOpen={isOpen} onOpenChange={onOpenChange} />
+      <CategoryModal isOpen={isOpen} setData={table.setData} onOpenChange={onOpenChange} />
     </>
   );
 }

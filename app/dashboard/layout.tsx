@@ -18,7 +18,6 @@ export default function LayoutDashboard({
       </SidebarInset>
       <AppSidebar/>
       {positionSidebar ==="top" && <ContentMain>{children}</ContentMain>}
-
     </SidebarProvider>
   );
 }
