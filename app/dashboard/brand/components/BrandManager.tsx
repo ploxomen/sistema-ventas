@@ -8,29 +8,35 @@ import {
 
 import { useDataTable } from "@/hooks/tables/useDataTable";
 import { Category } from "@/types/category";
-import { createCategoryColumns } from "./CategoryColumns";
 import { useDisclosure } from "@heroui/react";
-import CategoryModal from "./CategoryModal";
-import { useCategorie } from "../hooks/useCategorie";
 import { LoaderOverlay } from "@/components/loader-overlay";
+import { createBrandColumn } from "./BrandColumns";
+import { useBrand } from "../hooks/useBrand";
+import BrandModal from "./BrandModal";
 
-export function CategoryManager() {
+export function BrandManager() {
   //MODAL DE CREACION Y EDICION
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   //LLENADO DE TABLA
   const table = useDataTable<Category>({
     initialPageSize: 10,
-    endpoint: "categories",
+    endpoint: "brands",
   });
   //ACCIONES DE EDITAR Y ELIMINAR DB
-  const { onEdit, onDelete, categorie, setCategorie, status : statusRequest } = useCategorie({
+  const {
+    onEdit,
+    onDelete,
+    brand,
+    setBrand,
+    status: statusRequest,
+  } = useBrand({
     openModal: onOpenChange,
     onFetch: table.fetchData,
   });
   //CONSTRUCCION DE COLUMNAS
   const columns = useMemo(
     () =>
-      createCategoryColumns({
+      createBrandColumn({
         onEdit,
         onDelete,
       }),
@@ -44,10 +50,10 @@ export function CategoryManager() {
           onSearchChange={table.setSearch}
           onFilterChange={table.setFilter}
           onClearFilters={table.clearFilters}
-          createLabel="Nueva categoría"
+          createLabel="Nueva marca"
           onCreate={() => {
             onOpen();
-            setCategorie(null);
+            setBrand(null);
           }}
         />
 
@@ -62,15 +68,15 @@ export function CategoryManager() {
           onPageSizeChange={table.setPageSize}
         />
       </div>
-      <CategoryModal
-        categorie={categorie}
+      <BrandModal
+        brand={brand}
         isOpen={isOpen}
         onFetchdata={table.fetchData}
         onOpenChange={onOpenChange}
       />
-      {
-        statusRequest === "EN_PROGRESO" && <LoaderOverlay isVisible={true} message="Cargando petición"/> 
-      }
+      {statusRequest === "EN_PROGRESO" && (
+        <LoaderOverlay isVisible={true} message="Cargando petición" />
+      )}
     </>
   );
 }

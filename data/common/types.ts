@@ -1,0 +1,1 @@
+export type StatusHttp = "EN_PROGRESO" | "CARGADO"
