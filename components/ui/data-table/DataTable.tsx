@@ -35,7 +35,6 @@ export function DataTable<T extends { id: Key }>({
   onSortChange,
   renderExpanded,
 }: Props<T>) {
-  console.log(data)
   return (
     <Table
       aria-label="Tabla de datos"

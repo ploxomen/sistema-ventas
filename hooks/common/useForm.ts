@@ -9,7 +9,7 @@ import {
 interface Props<T> {
   initialForm: T;
   url?: string;
-  onSuccess?: (data: any) => {};
+  onSuccess?: (data?: any) => void;
 }
 export const useForm = <T extends { id?: number }>({
   initialForm,
@@ -17,6 +17,7 @@ export const useForm = <T extends { id?: number }>({
   onSuccess,
 }: Props<T>) => {
   const [form, setForm] = useState<T>({ ...initialForm });
+  const [loading, setLoading] = useState(false);
   const onInputChange = ({
     target,
   }: ChangeEvent<
@@ -38,6 +39,7 @@ export const useForm = <T extends { id?: number }>({
     e.preventDefault();
     if (!url) return;
     try {
+      setLoading(true);
       const response = form?.id
         ? await apiAxios.put(`${url}/${form.id}`, form)
         : await apiAxios.post(url, form);
@@ -45,14 +47,17 @@ export const useForm = <T extends { id?: number }>({
       if (onSuccess) {
         onSuccess(response.data);
       }
-    } catch (error) {}
+    } catch (error) {} finally {
+      setLoading(false)
+    }
   };
-  const onResetForm = () => {
-    setForm({ ...initialForm });
+  const onResetForm = (object : T) => {
+    setForm({ ...object });
   };
 
   return {
     form,
+    loading,
     onInputChange,
     setValue,
     onResetForm,

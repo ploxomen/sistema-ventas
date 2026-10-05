@@ -146,7 +146,7 @@ export function useDataTable<T>({
 
   return {
     data,
-    setData,
+    fetchData,
     loading,
     error,
     page,

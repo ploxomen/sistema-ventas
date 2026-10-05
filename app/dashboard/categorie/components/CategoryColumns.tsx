@@ -7,8 +7,8 @@ import type { TableColumn } from "@/types/table";
 import type { Category } from "@/types/category";
 
 interface CategoryColumnActions {
-  onEdit ?: (category: Category) => void;
-  onDelete ?: (category: Category) => void;
+  onEdit ?: (idCategory : number) => void;
+  onDelete ?: (idCategory: number) => void;
 }
 
 export function createCategoryColumns({

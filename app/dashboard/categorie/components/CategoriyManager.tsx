@@ -12,44 +12,31 @@ import { createCategoryColumns } from "./CategoryColumns";
 import { TableFilter } from "@/types/table";
 import { useDisclosure } from "@heroui/react";
 import CategoryModal from "./CategoryModal";
-interface Props {
-  onCreate?: () => void;
+import { useCategorie } from "../hooks/useCategorie";
+import { LoaderOverlay } from "@/components/loader-overlay";
 
-  onEdit?: (category: Category) => void;
-
-  onDelete?: (category: Category) => void;
-
-  onCreateSubcategory?: (category: Category) => void;
-}
-export function CategoryManager({
-  onCreate,
-
-  onEdit,
-
-  onDelete,
-
-  onCreateSubcategory,
-}: Props) {
-  const searchFunction = useCallback(
-    (category: Category, search: string) => {},
-    [],
-  );
+export function CategoryManager() {
+  //MODAL DE CREACION Y EDICION
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+  //LLENADO DE TABLA
   const table = useDataTable<Category>({
     initialPageSize: 10,
-    endpoint : "categories"
+    endpoint: "categories",
   });
-
+  //ACCIONES DE EDITAR Y ELIMINAR DB
+  const { onEdit, onDelete, categorie, setCategorie, status : statusRequest } = useCategorie({
+    openModal: onOpenChange,
+    onFetch: table.fetchData,
+  });
+  //CONSTRUCCION DE COLUMNAS
   const columns = useMemo(
     () =>
       createCategoryColumns({
         onEdit,
         onDelete,
       }),
-    [onEdit, onDelete, onCreateSubcategory],
+    [onEdit, onDelete],
   );
-
   return (
     <>
       <div className="space-y-5">
@@ -61,6 +48,7 @@ export function CategoryManager({
           createLabel="Nueva categoría"
           onCreate={() => {
             onOpen();
+            setCategorie(null);
           }}
         />
 
@@ -75,7 +63,15 @@ export function CategoryManager({
           onPageSizeChange={table.setPageSize}
         />
       </div>
-      <CategoryModal isOpen={isOpen} setData={table.setData} onOpenChange={onOpenChange} />
+      <CategoryModal
+        categorie={categorie}
+        isOpen={isOpen}
+        onFetchdata={table.fetchData}
+        onOpenChange={onOpenChange}
+      />
+      {
+        statusRequest === "EN_PROGRESO" && <LoaderOverlay isVisible={true} message="Cargando petición"/> 
+      }
     </>
   );
 }
