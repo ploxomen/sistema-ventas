@@ -6,8 +6,8 @@ export default function ListRoles({ roles = [] }: { roles: Role[] }) {
   return (
     <>
       {!roles.length && (
-        <div className="px-4 py-6">
-          <span className="font-semibold text-slate-600">
+        <div className="px-4 py-6 col-span-full text-center">
+          <span className="font-semibold text-slate-600 text-sm">
             No se encontraron roles
           </span>
         </div>
