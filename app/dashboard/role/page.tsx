@@ -11,12 +11,16 @@ import { useModuleData } from "@/hooks/common/useModuleData";
 import { useDisclosure } from "@heroui/react";
 import { useRoleData } from "@/hooks/common/useRoleData";
 import { useRole } from "./hooks/useRole";
+import { LoaderOverlay } from "@/components/loader-overlay";
 
 export default function Role() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { roles, onFetch } = useRoleData();
   const { modules } = useModuleData();
-  const { onDelete, onEdit, role } = useRole({ onFetch, openModal: onOpen });
+  const { onDelete, onEdit, role, onReset, loading } = useRole({
+    onFetch,
+    openModal: onOpen,
+  });
 
   return (
     <>
@@ -25,18 +29,26 @@ export default function Role() {
           <TitleModule title="Roles del sistema" />
           <BreadcrumbSeparatorNavegation navigations={navigationProductList} />
         </ContentBox>
-        <Button color="primary" onPress={() => onOpen()}>
+        <Button
+          color="primary"
+          onPress={() => {
+            onReset();
+            onOpen();
+          }}
+        >
           <Plus />
           Agregar rol
         </Button>
       </ContentBox>
       <RoleManager roles={roles} onDelete={onDelete} onEdit={onEdit} />
       <RoleModal
+        onFech={onFetch}
         role={role}
         modules={modules}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
       />
+      {loading && <LoaderOverlay isVisible/>}
     </>
   );
 }

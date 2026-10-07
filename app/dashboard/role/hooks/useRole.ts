@@ -19,7 +19,10 @@ export const useRole = ({ onFetch = () => {}, openModal = () => {}, }: { onFetch
       setLoading(false);
     }
   }, []);
-  const onDelete = async (id: number) => {
+  const onReset = () => {
+    setRole(null);
+  }
+  const onDelete = useCallback(async (id: number) => {
     const ok = await confirm({
       title: "Eliminar Rol",
       description: `¿Estás seguro de que deseas eliminar este rol"? Esta acción no se puede deshacer.`,
@@ -37,10 +40,11 @@ export const useRole = ({ onFetch = () => {}, openModal = () => {}, }: { onFetch
     } finally {
       setLoading(false);
     }
-  };
+  },[]);
   return {
     role,
     loading,
+    onReset,
     onEdit,
     onDelete
   };

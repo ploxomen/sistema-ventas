@@ -29,16 +29,23 @@ const dataForm: CreateRolDto = {
 export default function RoleModal({
   role = null,
   modules = [],
+  onFech = () => {},
   isOpen,
   onOpenChange,
 }: PropsModalHeroUI & {
   role: RoleForm | null;
   modules: Module[];
+  onFech : () => void
 }) {
+  const onSuccess = (data : any) => {
+    onFech()
+    onOpenChange()
+  }
   const { form, setValue, onInputChange, onSubmit, onResetForm, loading } =
     useForm<RoleForm>({
-      initialForm: role ? role : dataForm,
+      initialForm: dataForm,
       url: "/roles",
+      onSuccess
     });
   const handleSelectedAllModule = () => {
     setValue(

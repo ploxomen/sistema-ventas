@@ -7,7 +7,7 @@ import { CategoryManager } from "./components/CategoriyManager";
 export default function Categorie() {
   return (
     <>
-      <ContentBox className="mb-4 flex">
+      <ContentBox className="mb-4">
         <TitleModule title="Categorías" />
         <BreadcrumbSeparatorNavegation navigations={navigationCategories} />
       </ContentBox>
