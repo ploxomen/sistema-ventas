@@ -1,3 +1,4 @@
+import EmptyList from "@/components/dashboard/empty-list-categories";
 import { Icon } from "@/components/icon";
 import { ContentBox } from "@/components/setting-option";
 import { RoleData } from "@/types/role";
@@ -6,19 +7,30 @@ import { PencilIcon, Trash } from "lucide-react";
 
 interface Props {
   roles: RoleData[];
-  onEdit : (id : number) => void,
-  onDelete : (id : number) => void,
+  onEdit: (id: number) => void;
+  onDelete: (id: number) => void;
 }
-export default function RoleManage({ roles = [], onEdit = () => {}, onDelete = () => {}}: Props) {
+export default function RoleManage({
+  roles = [],
+  onEdit = () => {},
+  onDelete = () => {},
+}: Props) {
+  if (!roles.length)
+    return (
+      <EmptyList description="No se encontraron roles para ser listados" />
+    );
   return (
     <ContentBox className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-5">
       {roles.map((role) => (
-        <div key={role.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col justify-between">
+        <div
+          key={role.id}
+          className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col justify-between"
+        >
           <div>
             <div className="flex items-start justify-between">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-sm bg-primary">
-                  <Icon name={role.icon} size={25}/>
+                  <Icon name={role.icon} size={25} />
                 </div>
                 <div>
                   <h3 className="font-bold text-slate-900 text-base">
@@ -30,11 +42,22 @@ export default function RoleManage({ roles = [], onEdit = () => {}, onDelete = (
                 </div>
               </div>
               <div className="flex space-x-1">
-                <Button size="sm" isIconOnly color="secondary" onPress={e => onEdit(role.id!)}>
-                    <PencilIcon size={14}/>
+                <Button
+                  size="sm"
+                  isIconOnly
+                  color="secondary"
+                  onPress={(e) => onEdit(role.id!)}
+                >
+                  <PencilIcon size={14} />
                 </Button>
-                <Button size="sm" isIconOnly color="danger" variant="flat" onPress={e => onDelete(role.id!)}>
-                    <Trash size={14}/>
+                <Button
+                  size="sm"
+                  isIconOnly
+                  color="danger"
+                  variant="flat"
+                  onPress={(e) => onDelete(role.id!)}
+                >
+                  <Trash size={14} />
                 </Button>
               </div>
             </div>
