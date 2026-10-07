@@ -1,10 +1,10 @@
 "use client";
-import { Role } from "@/types/role";
+import { RoleForm } from "@/types/role";
 import InputCustom from "@/components/ui/input-custom";
 import TextareaCustom from "@/components/ui/textarea-custom";
 import { Module } from "@/types/module";
 import { ContentBox } from "@/components/setting-option";
-import { BoxIcon, PlusIcon, Trash } from "lucide-react";
+import { BoxIcon } from "lucide-react";
 import {
   Button,
   Modal,
@@ -15,10 +15,9 @@ import {
   Switch,
 } from "@heroui/react";
 import { useForm } from "@/hooks/common/useForm";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { PropsModalHeroUI } from "@/types/global";
 
-type RoleForm = Role & {modules : number[]};
 export type CreateRolDto = Omit<RoleForm, "id">;
 
 const dataForm: CreateRolDto = {
@@ -31,10 +30,8 @@ export default function RoleModal({
   role = null,
   modules = [],
   isOpen,
-  onFetchdata = () => {},
   onOpenChange,
 }: PropsModalHeroUI & {
-  onFetchdata: () => void;
   role: RoleForm | null;
   modules: Module[];
 }) {

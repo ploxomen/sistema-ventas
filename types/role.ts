@@ -7,3 +7,4 @@ export interface Role {
     icon : IconName,
 }
 export type RoleData = Role & { modules: Module[] };
+export type RoleForm = Role & {modules : number[]};

@@ -6,8 +6,10 @@ import { PencilIcon, Trash } from "lucide-react";
 
 interface Props {
   roles: RoleData[];
+  onEdit : (id : number) => void,
+  onDelete : (id : number) => void,
 }
-export default function RoleManage({ roles = [] }: Props) {
+export default function RoleManage({ roles = [], onEdit = () => {}, onDelete = () => {}}: Props) {
   return (
     <ContentBox className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-5">
       {roles.map((role) => (
@@ -28,10 +30,10 @@ export default function RoleManage({ roles = [] }: Props) {
                 </div>
               </div>
               <div className="flex space-x-1">
-                <Button size="sm" isIconOnly color="secondary">
+                <Button size="sm" isIconOnly color="secondary" onPress={e => onEdit(role.id!)}>
                     <PencilIcon size={14}/>
                 </Button>
-                <Button size="sm" isIconOnly color="danger" variant="flat">
+                <Button size="sm" isIconOnly color="danger" variant="flat" onPress={e => onDelete(role.id!)}>
                     <Trash size={14}/>
                 </Button>
               </div>
