@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Role } from "@/types/role";
 import InputCustom from "@/components/ui/input-custom";
 import TextareaCustom from "@/components/ui/textarea-custom";
@@ -12,9 +12,11 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Switch,
 } from "@heroui/react";
 import { useForm } from "@/hooks/common/useForm";
 import { useCallback, useEffect } from "react";
+import { PropsModalHeroUI } from "@/types/global";
 
 export type CreateRolDto = Omit<Role, "id">;
 
@@ -25,27 +27,44 @@ const dataForm: CreateRolDto = {
   modules: [],
 };
 export default function RoleModal({
-    role = null,
-    modules = [],
+  role = null,
+  modules = [],
   isOpen,
   onFetchdata = () => {},
   onOpenChange,
-} : PropsModalHeroUI & { onFetchdata: () => void; role: Role | null; modules : Module[] }) {
-    const { form, setValue, onInputChange, onSubmit, onResetForm, loading } =
+}: PropsModalHeroUI & {
+  onFetchdata: () => void;
+  role: Role | null;
+  modules: Module[];
+}) {
+  const { form, setValue, onInputChange, onSubmit, onResetForm, loading } =
     useForm<Role>({
       initialForm: role ? role : dataForm,
       url: "/roles",
     });
-    useEffect(() => {
+  const handleSelectedAllModule = () => {
+    setValue(
+      "modules",
+      modules.map((m) => m.id).filter((id) => id !== undefined),
+    );
+  };
+  const handleClearModule = () => {
+    setValue("modules", []);
+  };
+  const handleSelectModule = (id: number, isSelected : boolean) => {
+    const filterModules = !isSelected ? form.modules.filter(m => m !== id) : [...form.modules, id];
+    setValue("modules", filterModules);
+  };
+  useEffect(() => {
     if (role) {
       onResetForm(role);
     } else {
       onResetForm(dataForm);
     }
   }, [role]);
-    return (
+  return (
     <>
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="xl">
         <ModalContent>
           {(onClose) => (
             <>
@@ -60,8 +79,7 @@ export default function RoleModal({
                       {form?.id ? "Editar" : "Agregar"} rol
                     </h2>
                     <p className="text-sm font-medium text-slate-400">
-                      {form?.id ? "Editar el" : "Establece un nuevo "}{" "}
-                      rol
+                      {form?.id ? "Editar el" : "Establece un nuevo "} rol
                     </p>
                   </ContentBox>
                 </ContentBox>
@@ -78,12 +96,19 @@ export default function RoleModal({
                   />
                   <TextareaCustom
                     label="Descripción"
-                    className="mb-2"
+                    className="mb-4"
                     value={form.description}
                     name="description"
                     onChange={onInputChange}
                   />
-                  
+                  <InputCustom
+                    label="Icono"
+                    className="mb-2"
+                    isRequired
+                    value={form.icon}
+                    name="icon"
+                    onChange={onInputChange}
+                  />
                   <ContentBox className="flex flex-col gap-3">
                     {!modules.length && (
                       <div className="text-center font-semibold text-sm py-3">
@@ -93,20 +118,59 @@ export default function RoleModal({
                       </div>
                     )}
                     {modules.length > 0 && (
-
-                        <ContentBox className="bg-slate-50 rounded-2xl p-4 border border-slate-200 max-h-56 overflow-y-auto space-y-2.5">
-                            {
-                                modules.map(module => (
-                                    <label key={module.id} className="flex items-start space-x-3 p-2 hover:bg-white rounded-xl transition-colors cursor-pointer border border-transparent hover:border-slate-200">
-                                        <input className="checkbox" class="mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 w-4 h-4" value={module.id} />
-                                        <div>
-                                            <p className="text-sm font-semibold text-slate-800" x-text="mod.name">{module.name}</p>
-                                            <p className="text-xs text-slate-500" x-text="mod.description">{module.description}</p>
-                                        </div>
-                                    </label>
-                                ))
-                            }
+                      <>
+                        <ContentBox className="flex justify-between items-center mb-2">
+                          <span className="block text-sm font-semibold text-slate-700">
+                            Módulos y Permisos Asignados
+                          </span>
+                          <ContentBox className="space-x-2 text-xs">
+                            <button
+                              type="button"
+                              onClick={() => handleSelectedAllModule()}
+                              className="text-indigo-600 hover:underline"
+                            >
+                              Seleccionar Todos
+                            </button>
+                            <span className="text-slate-300">|</span>
+                            <button
+                              type="button"
+                              onClick={() => handleClearModule()}
+                              className="text-slate-500 hover:underline"
+                            >
+                              Limpiar
+                            </button>
+                          </ContentBox>
                         </ContentBox>
+                        <ContentBox className="bg-slate-50 rounded-2xl p-4 border border-slate-200 max-h-56 overflow-y-auto space-y-2.5">
+                          {modules.map((module) => (
+                            <label
+                              key={module.id}
+                              className="flex items-start space-x-3 p-2 hover:bg-white rounded-xl transition-colors cursor-pointer border border-transparent hover:border-slate-200"
+                            >
+                              <Switch
+                                onChange={(e) => handleSelectModule(module.id!, e.target.checked)}
+                                isSelected={
+                                    form.modules.includes(module.id!)
+                                }
+                              />
+                              <div>
+                                <p
+                                  className="text-sm font-semibold text-slate-800"
+                                  x-text="mod.name"
+                                >
+                                  {module.name}
+                                </p>
+                                <p
+                                  className="text-xs text-slate-500"
+                                  x-text="mod.description"
+                                >
+                                  {module.description}
+                                </p>
+                              </div>
+                            </label>
+                          ))}
+                        </ContentBox>
+                      </>
                     )}
                   </ContentBox>
                 </form>
@@ -128,5 +192,5 @@ export default function RoleModal({
         </ModalContent>
       </Modal>
     </>
-    )
+  );
 }
