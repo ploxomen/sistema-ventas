@@ -35,7 +35,7 @@ export const useForm = <T extends { id?: number }>({
     },
     [],
   );
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!url) return;
     try {
