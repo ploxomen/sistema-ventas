@@ -18,12 +18,13 @@ import { useForm } from "@/hooks/common/useForm";
 import { useCallback, useEffect } from "react";
 import { PropsModalHeroUI } from "@/types/global";
 
-export type CreateRolDto = Omit<Role, "id">;
+type RoleForm = Role & {modules : number[]};
+export type CreateRolDto = Omit<RoleForm, "id">;
 
 const dataForm: CreateRolDto = {
   name: "",
   description: "",
-  icon: "",
+  icon: "user",
   modules: [],
 };
 export default function RoleModal({
@@ -34,11 +35,11 @@ export default function RoleModal({
   onOpenChange,
 }: PropsModalHeroUI & {
   onFetchdata: () => void;
-  role: Role | null;
+  role: RoleForm | null;
   modules: Module[];
 }) {
   const { form, setValue, onInputChange, onSubmit, onResetForm, loading } =
-    useForm<Role>({
+    useForm<RoleForm>({
       initialForm: role ? role : dataForm,
       url: "/roles",
     });

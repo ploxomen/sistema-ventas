@@ -8,14 +8,15 @@ import RoleModal from './components/RoleModal'
 import {
   Button
 } from "@heroui/react";
-import { BoxIcon, Plus, Trash } from "lucide-react";
+import { Plus } from "lucide-react";
 import {useModuleData} from "@/hooks/common/useModuleData";
 import { useDisclosure } from "@heroui/react";
+import { useRoleData } from "@/hooks/common/useRoleData";
 
 export default function Role() {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const {roles, onFetch} = useRoleData();
     const {modules} = useModuleData();
-
     return (
         <>
             <ContentBox className="mb-4 flex">
@@ -28,7 +29,7 @@ export default function Role() {
                     Agregar rol
                 </Button>
             </ContentBox>
-            <RoleManager />
+            <RoleManager roles={roles}/>
             <RoleModal role={null} modules={modules} isOpen={isOpen} onOpenChange={onOpenChange}/>
         </>
     );

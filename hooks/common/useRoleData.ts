@@ -1,9 +1,9 @@
 import { apiAxios } from "@/lib/apiAxios";
-import { Role } from "@/types/user";
+import { RoleData } from "@/types/role";
 import { useCallback, useEffect, useState } from "react";
 
 export const useRoleData = () => {
-  const [roles, setRoles] = useState<Role[]>([]);
+  const [roles, setRoles] = useState<RoleData[]>([]);
   const onFetch = useCallback(async () => {
     const response = await apiAxios.get("roles");
     setRoles(response.data);
@@ -13,5 +13,6 @@ export const useRoleData = () => {
   }, []);
   return {
     roles,
+    onFetch
   };
 };

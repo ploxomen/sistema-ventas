@@ -1,7 +1,9 @@
+import { IconName } from "@/components/icon";
+import { Module } from "./module";
 export interface Role {
     id ?: number
     name : string,
     description : string,
-    icon : string,
-    modules : number[]
+    icon : IconName,
 }
+export type RoleData = Role & { modules: Module[] };
