@@ -164,7 +164,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   } else if(positionSidebar === "top"){
     position = "top";
   }
-  console.log(position)
   return (
     <Sidebar collapsible="icon" {...props} side={position}>
       <SidebarTrigger className="absolute cursor-pointer bg-white rounded-full z-10 top-2 ltr:-right-3.5 rtl:-left-3.5 group-data-[side=right]:-right-3.5 group-data-[side=right]:-left-3.5" />

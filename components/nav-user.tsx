@@ -13,18 +13,13 @@ import {
 } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { useDirectionStore } from "@/store/useDirectionStore";
+import { useAuthStore } from "@/store/useAuth";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser() {
   const { isMobile } = useSidebar();
   const { isRTL } = useDirectionStore();
+  const {user, loading} = useAuthStore();
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -51,8 +46,8 @@ export function NavUser({
             </Avatar>
           </div>
           <div className="text-center mt-6 pb-6">
-            <p className="text-white font-semibold text-base">{user.name}</p>
-            <p className="text-slate-400 mt-1 text-sm">{user.email}</p>
+            <p className="text-slate-700 font-semibold text-base">{user?.fullName}</p>
+            <p className="text-slate-400 mt-1 text-sm">{user?.email}</p>
           </div>
           <ul className="flex border-y-1 border-dashed px-5 py-6 flex-col gap-4 text-gray-500">
             <li className="hover:bg-accent rounded-md p-2">
