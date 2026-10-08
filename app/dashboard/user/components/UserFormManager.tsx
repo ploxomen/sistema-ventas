@@ -6,12 +6,13 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import InputCustom from "@/components/ui/input-custom";
 import { useForm } from "@/hooks/common/useForm";
 import { useRoleData } from "@/hooks/common/useRoleData";
-import { User } from "@/types/user";
-import { LockIcon, UserIcon } from "lucide-react";
+import { User, UserForm } from "@/types/user";
+import { LockIcon, SaveIcon, UserIcon } from "lucide-react";
 import ListRoles from "./ListRoles";
+import { Button } from "@/components/ui/button";
 
-const defaultDataForm: User = {
-  documentType: "DNI",
+const defaultDataForm: UserForm = {
+  documentType: "",
   documentNumber: "",
   email: "",
   firstName: "",
@@ -19,17 +20,33 @@ const defaultDataForm: User = {
   address: "",
   dateOfBirth: "",
   phone: "",
-  userRoles: [],
+  roleIds: [],
 };
 
-export default function UserFormManager() {
+export default function UserFormManager({
+  user = null,
+}: {
+  user: UserForm | null;
+}) {
   const { roles } = useRoleData();
-  const { form, onSubmit, onInputChange } = useForm<User>({
-    initialForm: defaultDataForm,
-    url: "users",
-  });
+  const { form, onSubmit, onInputChange, setValue, onResetForm } =
+    useForm<UserForm>({
+      initialForm: user ? user : defaultDataForm,
+      url: "users",
+      onSuccess: () => {
+        if (!user) {
+          onResetForm(defaultDataForm);
+        }
+      },
+    });
+  const handleSelect = (isChecked: boolean, idRol: number) => {
+    const rolesSelected = isChecked
+      ? [...form.roleIds, idRol]
+      : form.roleIds.filter((prev) => prev !== idRol);
+    setValue("roleIds", rolesSelected);
+  };
   return (
-    <>
+    <form onSubmit={onSubmit}>
       <Card className="gap-1 mb-5">
         <CardHeader>
           <SubTitleCard
@@ -45,6 +62,7 @@ export default function UserFormManager() {
               className="col-span-6"
               name="documentType"
               isRequired
+              selectedKey={form.documentType}
               onChange={onInputChange}
               items={[
                 { value: "DNI", label: "D.N.I" },
@@ -85,6 +103,7 @@ export default function UserFormManager() {
             />
             <InputCustom
               label="Fecha nacimiento"
+              type="date"
               name="dateOfBirth"
               value={form.dateOfBirth}
               onChange={onInputChange}
@@ -120,10 +139,20 @@ export default function UserFormManager() {
         </CardHeader>
         <CardContent>
           <ContentBox className="grid grid-cols-12 gap-2">
-            <ListRoles roles={roles}/>
+            <ListRoles
+              roles={roles}
+              onChecked={handleSelect}
+              rolesSelected={form.roleIds}
+            />
           </ContentBox>
         </CardContent>
       </Card>
-    </>
+      <div className="py-4 text-right">
+        <Button color="primary" type="submit">
+          <SaveIcon size={24} />
+          <span>Guardar</span>
+        </Button>
+      </div>
+    </form>
   );
 }

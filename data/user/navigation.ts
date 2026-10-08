@@ -1,8 +1,12 @@
 import { navigationDashboard, navigationDashboardHome } from "../navigarion";
 
-export const userList = {
+export const createUser = {
   url: navigationDashboard("user"),
-  title: "Lista de usuarios",
+  title: "Nuevo usuario",
+};
+export const updateUser = {
+  url: navigationDashboard("user"),
+  title: "Editar usuario",
 };
 export const users = {
   url: navigationDashboard("user"),
@@ -11,5 +15,14 @@ export const users = {
 export const navigationUserList = [
   navigationDashboardHome,
   users,
-  { ...userList, url: null },
+  { ...createUser, url: null },
+];
+export const navigationUserEdit = [
+  navigationDashboardHome,
+  users,
+  {...updateUser, url: null}
+];
+export const navigationUserTable = [
+  navigationDashboardHome,
+  { ...users, url: null },
 ];

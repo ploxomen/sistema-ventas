@@ -1,13 +1,8 @@
+export type StatusUser = "ONLINE" | "DISABLED" | "RESTORE"
 type DocumenType = "DNI" | "PASAPORTE" | "CARNET_EXTRANJERIA"
-export interface Role {
-    id : number,
-    description ?: string,
-    name ?: string,
-    icon ?: string
-}
 export interface User {
     id ?: number,
-    documentType : DocumenType,
+    documentType : DocumenType | "",
     documentNumber : string,
     lastName: string,
     firstName: string,
@@ -15,5 +10,9 @@ export interface User {
     address?: string,
     phone?: string,
     dateOfBirth?: string,
-    userRoles : number[]
+    status ?: StatusUser
+}
+
+export interface UserForm extends User{
+    roleIds : number []
 }
