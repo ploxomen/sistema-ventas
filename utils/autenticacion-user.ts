@@ -25,7 +25,6 @@ export async function getAuthenticatedUser() {
       firstName: (payload.firstName as string | null) ?? null,
       lastName: (payload.lastName as string | null) ?? null,
       fullName: (payload.fullName as string | null) ?? null,
-      roles: (payload.roles as Array<RolesList> | []) ?? [],
     };
   } catch {
     return null;

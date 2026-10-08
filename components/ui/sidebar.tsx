@@ -18,10 +18,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  TooltipContent,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
+import { TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import {
   HoverCard,
   HoverCardContent,
@@ -30,6 +27,7 @@ import {
 import { Position, usePositionSidebar } from "@/store/usePositionSidebar";
 import { useColorSidebar } from "@/store/useColorSidebar";
 import { ContentBox } from "../setting-option";
+import { Module } from "@/store/useAuth";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -553,13 +551,7 @@ function SidebarMenuButton({
 }: React.ComponentProps<"div"> & {
   asChild?: boolean;
   isActive?: boolean;
-  tooltip?:
-    | string
-    | {
-        title: string;
-        url: string;
-      }[]
-    | React.ComponentProps<typeof TooltipContent>;
+  tooltip?: string | Module[] | React.ComponentProps<typeof TooltipContent>;
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const Comp = asChild ? Slot : "div";
   const { state } = useSidebar();
@@ -581,24 +573,24 @@ function SidebarMenuButton({
   if (!tooltip) {
     return button;
   }
-  
+
   if (typeof tooltip === "string") {
     tooltip = {
       children: tooltip,
     };
-  }else if( Array.isArray(tooltip)){
+  } else if (Array.isArray(tooltip)) {
     tooltip = {
       children: (
         <ContentBox className="flex flex-col gap-2 min-w-40">
           {tooltip.map((item, index) => (
             <a
-              key={index}
-              href={item.url}
+              key={item.idModule}
+              href={item.urlModule}
               className="text-sidebar-foreground rounded-sm py-1 px-3 hover:bg-slate-50"
               target="_blank"
               rel="noopener noreferrer"
             >
-              {item.title}
+              {item.nameModule}
             </a>
           ))}
         </ContentBox>

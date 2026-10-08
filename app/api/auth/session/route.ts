@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAuthenticatedUser } from "@/utils/autenticacion-user";
+import { apiAxiosServer } from "@/lib/apiAxiosServer";
 
 export async function GET() {
   try {
@@ -10,9 +11,10 @@ export async function GET() {
         { status: 401 }
       );
     }
-    return NextResponse.json({ user }, { status: 200 });
+    const response = await apiAxiosServer.get('auth/session');
+    return NextResponse.json({ user, roles: response.data.roles, modules: response.data.modules }, { status: 200 });
   } catch (error) {
-    console.error("Error en GET /api/auth/me:", error);
+    console.error("Error en GET /api/auth/session:", error);
     return NextResponse.json(
       { user: null, message: "Error interno del servidor" },
       { status: 500 }
