@@ -1,7 +1,7 @@
 "use client";
 
 import { House } from "lucide-react";
-
+import { Icon } from "@/components/icon";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSidebar } from "@/components/ui/sidebar";
 import {
@@ -18,7 +18,7 @@ import { useAuthStore } from "@/store/useAuth";
 export function NavUser() {
   const { isMobile } = useSidebar();
   const { isRTL } = useDirectionStore();
-  const {user, loading} = useAuthStore();
+  const {user, loading, roles} = useAuthStore();
 
   return (
     <Sheet>
@@ -50,72 +50,17 @@ export function NavUser() {
             <p className="text-slate-400 mt-1 text-sm">{user?.email}</p>
           </div>
           <ul className="flex border-y-1 border-dashed px-5 py-6 flex-col gap-4 text-gray-500">
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
-            <li className="hover:bg-accent rounded-md p-2">
-              <a href="" className="flex gap-4">
-                <House className="size-6" />
-                <span className="text-sm">Home</span>
-              </a>
-            </li>
+            {
+              roles.map(rol => (
+                <li key={rol.idRole} className={`rounded-md p-2 ${rol.isActive ? 'bg-primary-500 text-white hover:bg-primary-400' : 'hover:bg-accent '}`}>
+                  <a href="#" className="flex gap-4 items-center">
+                    <Icon name={rol.iconRol} size={24} />
+                    <span className="text-sm font-semibold">{rol.nombreRol}</span>
+                  </a>
+                </li>
+              ))
+            }
+            
           </ul>
         </div>
         <SheetFooter>

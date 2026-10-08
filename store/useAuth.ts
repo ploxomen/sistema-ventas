@@ -1,3 +1,4 @@
+import { RolesList } from '@/utils/autenticacion-user';
 import { create } from 'zustand';
 
 export interface User {
@@ -6,11 +7,13 @@ export interface User {
   firstName: string | null;
   lastName: string | null;
   fullName: string | null;
+  roles : RolesList[] | [];
 }
 
 interface AuthState {
   user: User | null;
   loading: boolean;
+  roles : RolesList[];
   error: string | null;
   fetchUser: () => Promise<void>;
   setUser: (user: User | null) => void;
@@ -19,6 +22,7 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
+  roles : [],
   loading: true,
   error: null,
   // Método para consultar la API y guardar el usuario
@@ -28,12 +32,12 @@ export const useAuthStore = create<AuthState>((set) => ({
       const res = await fetch('/api/auth/me');
       if (res.ok) {
         const data = await res.json();
-        set({ user: data.user, loading: false });
+        set({ user: data.user, loading: false, roles: data.user.roles });
       } else {
-        set({ user: null, loading: false });
+        set({ user: null, loading: false, roles: [] });
       }
     } catch (err) {
-      set({ user: null, loading: false, error: 'Error al cargar usuario' });
+      set({ user: null, loading: false, error: 'Error al cargar usuario', roles: []});
     }
   },
   setUser: (user) => set({ user }),

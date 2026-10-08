@@ -1,6 +1,12 @@
 import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
-
+import { IconName } from "@/components/icon";
+export interface RolesList {
+  idRole : number,
+  nombreRol : string,
+  iconRol : IconName,
+  isActive : boolean
+}
 export async function getAuthenticatedUser() {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
@@ -13,13 +19,13 @@ export async function getAuthenticatedUser() {
   }
   try {
     const { payload } = await jwtVerify(token, new TextEncoder().encode(secret));
-
     return {
-      id: Number(payload.sub),
+      sub: Number(payload.sub),
       email: payload.email as string,
       firstName: (payload.firstName as string | null) ?? null,
       lastName: (payload.lastName as string | null) ?? null,
       fullName: (payload.fullName as string | null) ?? null,
+      roles: (payload.roles as Array<RolesList> | []) ?? [],
     };
   } catch {
     return null;
