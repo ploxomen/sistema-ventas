@@ -3,7 +3,7 @@ import { apiAxiosServer } from "@/lib/apiAxiosServer";
 interface RouteContext {
   params: Promise<{ id: string }>;
 }
-const URL_API = "brands";
+const URL_API = "categories";
 
 export async function GET(request: NextRequest, context: RouteContext) {
   const { id } = await context.params;
