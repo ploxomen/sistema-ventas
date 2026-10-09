@@ -110,51 +110,57 @@ export function useProductForm(initialData?: Partial<ProductFormData>) {
       form.lots.reduce((total, lot) => total + Number(lot.quantity || 0), 0),
     [form.lots],
   );
-  const onSubmit = useCallback((e: SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", form.name);
-    formData.append("description", form.description);
-    formData.append("model", form.model);
-    // IDs: no enviar los campos nulos
-    if (form.categoryId !== null) {
-      formData.append("categoryId", String(form.categoryId));
-    }
-    if (form.subcategoryId !== null) {
-      formData.append("subcategoryId", String(form.subcategoryId));
-    }
-    if (form.brandId !== null) {
-      formData.append("brandId", String(form.brandId));
-    }
-    // Números
-    formData.append("purchasePrice", String(form.purchasePrice));
-    formData.append("salePrice", String(form.salePrice));
-    formData.append("minimunStock", String(form.minimunStock));
-    formData.append("wholesalePrice", String(form.wholesalePrice));
-    formData.append("initialStock", String(form.initialStock));
-    // Booleano
-    formData.append("hasExpiration", String(form.hasExpiration));
-    // Arreglo de objetos
-    formData.append("lots", JSON.stringify(form.lots));
-    // Archivos múltiples
-    form.images.forEach((image) => {
-      if (image.file) {
-        formData.append("imageFile", image.file);
+  const onSubmit = useCallback(
+    (e: SubmitEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("name", form.name);
+      formData.append("description", form.description);
+      formData.append("model", form.model);
+      // IDs: no enviar los campos nulos
+      if (form.categoryId !== null) {
+        formData.append("categoryId", String(form.categoryId));
       }
-    });
-    formData.append(
-      "images",
-      JSON.stringify(
-        form.images.filter((img) => !img.file).map((img) => img.id),
-      ),
-    );
-    const response = apiAxios.post("product", formData, {
-    headers : {
-        "Content-Type": "multipart/form-data"
-    }
-  });
-
-  }, [form]);
+      if (form.subcategoryId !== null) {
+        formData.append("subcategoryId", String(form.subcategoryId));
+      }
+      if (form.brandId !== null) {
+        formData.append("brandId", String(form.brandId));
+      }
+      // Números
+      formData.append("purchasePrice", String(form.purchasePrice));
+      formData.append("salePrice", String(form.salePrice));
+      formData.append("minimunStock", String(form.minimunStock));
+      formData.append("wholesalePrice", String(form.wholesalePrice));
+      formData.append("initialStock", String(form.initialStock));
+      // Booleano
+      formData.append("hasExpiration", String(form.hasExpiration));
+      // Arreglo de objetos
+      formData.append("lots", JSON.stringify(form.lots));
+      // Archivos múltiples
+      form.images.forEach((image) => {
+        if (image.file) {
+          formData.append("imageFile", image.file);
+        }
+      });
+      formData.append(
+        "images",
+        JSON.stringify(
+          form.images.map((img) =>
+            img.id
+              ? { isPrimary: img.isPrimary }
+              : { isPrimary: img.isPrimary, id: img.id },
+          ),
+        ),
+      );
+      const response = apiAxios.post("product", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    },
+    [form],
+  );
   useEffect(() => {
     getCombos();
   }, [getCombos]);
