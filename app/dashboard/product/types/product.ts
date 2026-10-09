@@ -33,6 +33,7 @@ export interface ProductFormData {
   model: string;
   purchasePrice: number;
   salePrice: number;
+  minimunStock : number,
   wholesalePrice: number;
   initialStock: number;
   hasExpiration: boolean;

@@ -8,22 +8,32 @@ import TextareaCustom from "@/components/ui/textarea-custom";
 import SubTitleCard from "@/components/dashboard/SubTitleCard";
 import { ProductFormData } from "../types/product";
 import { PropsForm } from "@/types/global";
+import { Category, SubCategory } from "@/types/category";
+import { Brand } from "@/types/brand";
+import { useMemo } from "react";
 
 export type ProductBasicInfoType = Pick<
   ProductFormData,
   "name" | "categoryId" | "subcategoryId" | "brandId" | "model" | "description"
 >;
-type Props = PropsForm<ProductBasicInfoType>;
+type Props = PropsForm<
+  ProductBasicInfoType & { categories: Category[]; brands: Brand[] }
+>;
 
 export default function ProductBasicInfo({
   brandId,
   categoryId,
+  categories,
+  brands,
   model,
   description,
   name,
   onChange,
   subcategoryId,
 }: Props) {
+  const subcategories: SubCategory[] = useMemo(() => {
+    return categories.find((cat) => cat.id === categoryId)?.subCategories || [];
+  }, [categories, categoryId]);
   return (
     <Card className="gap-1 mb-5">
       <CardHeader>
@@ -50,7 +60,10 @@ export default function ProductBasicInfo({
             onSelectionChange={(key) => {
               onChange("categoryId", key ? Number(key) : null);
             }}
-            items={[{ value: "1", label: "Pisco" }]}
+            items={categories.map((val) => ({
+              value: val.id.toString(),
+              label: val.name,
+            }))}
           />
           <MyAutocomplete
             label="Subcategoría"
@@ -58,10 +71,10 @@ export default function ProductBasicInfo({
             value={subcategoryId !== null ? String(subcategoryId) : ""}
             onSelectionChange={(key) => onChange("subcategoryId", Number(key))}
             isRequired
-            items={[
-              { value: "1", label: "Puro" },
-              { value: "2", label: "Mosto Verde" },
-            ]}
+            items={subcategories.map((sub) => ({
+              value: sub.id!.toString(),
+              label: sub.name,
+            }))}
           />
           <MyAutocomplete
             label="Marca"
@@ -69,7 +82,10 @@ export default function ProductBasicInfo({
             value={brandId !== null ? String(brandId) : ""}
             onSelectionChange={(key) => onChange("brandId", Number(key))}
             isRequired
-            items={[{ value: "1", label: "Cartavio" }]}
+            items={brands.map((val) => ({
+              value: val.id.toString(),
+              label: val.name,
+            }))}
           />
           <InputCustom
             label="Modelo"

@@ -14,6 +14,7 @@ type PropProductPricingType = Pick<
   | "wholesalePrice"
   | "initialStock"
   | "hasExpiration"
+  | "minimunStock"
 >;
 
 type Props = PropsForm<PropProductPricingType>;
@@ -21,6 +22,7 @@ type Props = PropsForm<PropProductPricingType>;
 export default function ProductPricing({
   onChange,
   salePrice,
+  minimunStock,
   purchasePrice,
   initialStock,
   wholesalePrice,
@@ -42,6 +44,14 @@ export default function ProductPricing({
             type="number"
             value={String(initialStock)}
             onValueChange={(value) => onChange("initialStock", Number(value))}
+            isRequired
+            className="col-span-full md:col-span-6"
+          />
+          <InputCustom
+            label="Stock mínimo"
+            type="number"
+            value={String(minimunStock)}
+            onValueChange={(value) => onChange("minimunStock", Number(value))}
             isRequired
             className="col-span-full md:col-span-6"
           />

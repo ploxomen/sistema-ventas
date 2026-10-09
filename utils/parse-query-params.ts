@@ -23,8 +23,8 @@ export function parseQueryParams(
   const searchParams = request.nextUrl.searchParams;
 
   // Valores por defecto
-  const page = defaults.page ?? 1;
-  const limit = defaults.limit ?? 10;
+  const page = defaults.page ?? 0;
+  const limit = defaults.limit ?? 0;
   const sortDirection = defaults.sortDirection ?? "asc";
   // Columna por la cual ordenar
   const column = searchParams.get("column") || undefined;
