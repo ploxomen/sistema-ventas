@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import InputCustom from "@/components/ui/input-custom";
 import { useForm } from "@/hooks/common/useForm";
 import { useRoleData } from "@/hooks/common/useRoleData";
-import { User, UserForm } from "@/types/user";
+import { UserForm } from "@/types/user";
 import { LockIcon, SaveIcon, UserIcon } from "lucide-react";
 import ListRoles from "./ListRoles";
 import { Button } from "@/components/ui/button";

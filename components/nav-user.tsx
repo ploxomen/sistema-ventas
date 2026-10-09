@@ -1,9 +1,7 @@
 "use client";
 
-import { House } from "lucide-react";
 import { Icon } from "@/components/icon";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSidebar } from "@/components/ui/sidebar";
 import {
   Sheet,
   SheetContent,
@@ -16,9 +14,8 @@ import { useDirectionStore } from "@/store/useDirectionStore";
 import { useAuthStore } from "@/store/useAuth";
 
 export function NavUser() {
-  const { isMobile } = useSidebar();
   const { isRTL } = useDirectionStore();
-  const {user, loading, roles} = useAuthStore();
+  const {user, roles} = useAuthStore();
 
   return (
     <Sheet>

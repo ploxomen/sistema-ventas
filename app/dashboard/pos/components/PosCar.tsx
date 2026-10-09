@@ -1,6 +1,6 @@
 "use client";
 import { ContentBox } from "@/components/setting-option";
-import { Button, Kbd, useDisclosure } from "@heroui/react";
+import { Button, Kbd } from "@heroui/react";
 import { ChevronRight, ShoppingBagIcon, UserIcon, Wallet } from "lucide-react";
 import React from "react";
 

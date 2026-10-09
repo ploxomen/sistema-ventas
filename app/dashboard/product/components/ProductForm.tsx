@@ -1,11 +1,8 @@
 "use client";
 import { ContentBox } from "@/components/setting-option";
 import { useProductForm } from "../hooks/useProductForm";
-import {
-  Brand,
-  Category,
+import type {
   ProductFormData,
-  Subcategory,
 } from "../types/product";
 import ProductBasicInfo from "./ProductBasicInfo";
 import ProductImages from "./ProductImages";
@@ -14,17 +11,12 @@ import ProductExpirationLots from "./ProductExpirationLots";
 import { Button } from "@heroui/react";
 import { Save } from "lucide-react";
 interface Props {
-  initialData: Partial<ProductFormData>;
-  categories: Category[];
-  subcategories: Subcategory[];
-  brands: Brand[];
-  onSubmit: (data: ProductFormData) => Promise<void>;
+  initialData?: Partial<ProductFormData>;
+  onSubmit?: (data: ProductFormData) => Promise<void>;
   onCancel?: () => void;
 }
 export default function ProductForm({
   initialData,
-  categories,
-  subcategories,
   onSubmit,
   onCancel,
 }: Props) {
@@ -43,7 +35,9 @@ export default function ProductForm({
   const stockMismatch =
     form.hasExpiration && totalLotStock !== form.initialStock;
   const handleSubmit = async () => {
-    await onSubmit(form);
+    if(onSubmit){
+      await onSubmit(form);
+    }
   };
   return (
     <form>

@@ -1,4 +1,4 @@
-import { Button, Chip } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { Edit, Trash2 } from "lucide-react";
 import type { TableColumn } from "@/types/table";
 import { Brand } from "@/types/brand";

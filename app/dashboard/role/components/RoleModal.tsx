@@ -37,11 +37,11 @@ export default function RoleModal({
   modules: Module[];
   onFech : () => void
 }) {
-  const onSuccess = (data : any) => {
+  const onSuccess = () => {
     onFech()
     onOpenChange()
   }
-  const { form, setValue, onInputChange, onSubmit, onResetForm, loading } =
+  const { form, setValue, onInputChange, onSubmit, onResetForm } =
     useForm<RoleForm>({
       initialForm: dataForm,
       url: "/roles",

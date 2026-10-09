@@ -9,8 +9,8 @@ interface CategoryColumnActions {
 }
 
 export function createCategoryColumns({
-  onEdit,
-  onDelete,
+  onEdit = () => {},
+  onDelete = () => {},
 }: CategoryColumnActions): TableColumn<Category>[] {
   return [
     {

@@ -1,11 +1,8 @@
 import React from 'react'
-import EmptyList from './dashboard/empty-list-categories'
-
 export default function EmptyData() {
   return (
     <div className="w-full max-w-md flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 bg-white p-8 text-center shadow-sm transition-colors">
         <div className="mb-4 rounded-full bg-gray-100 p-3 text-gray-500">
-        <EmptyList>
     </div>
     <h3 className="text-lg font-semibold text-gray-800">
       Sin información disponible

@@ -46,7 +46,7 @@ export default function RoleManage({
                   size="sm"
                   isIconOnly
                   color="secondary"
-                  onPress={(e) => onEdit(role.id!)}
+                  onPress={() => onEdit(role.id!)}
                 >
                   <PencilIcon size={14} />
                 </Button>
@@ -55,7 +55,7 @@ export default function RoleManage({
                   isIconOnly
                   color="danger"
                   variant="flat"
-                  onPress={(e) => onDelete(role.id!)}
+                  onPress={() => onDelete(role.id!)}
                 >
                   <Trash size={14} />
                 </Button>

@@ -1,5 +1,5 @@
 import { Input, InputProps } from "@heroui/input";
-import { Select, SelectProps, SelectSectionProps } from "@heroui/react";
+import { Select, SelectProps } from "@heroui/react";
 import { ReactNode } from "react";
 type InputCustomProps = InputProps;
 type SelectCustomProps = SelectProps & {children : ReactNode}

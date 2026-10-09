@@ -1,12 +1,9 @@
 "use client";
-import { Button, Chip } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { Edit, Trash2 } from "lucide-react";
 import type { TableColumn } from "@/types/table";
-import type { Category } from "@/types/category";
 import type { StatusUser, User } from "@/types/user";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-
 interface UserColumnAction {
   onDelete?: (idCategory: number) => void;
 }
@@ -95,9 +92,9 @@ export function createUserColumn({
     {
       key: "address",
       label: "DIRECCION",
-      render: (user) => {
-        user.address;
-      },
+      render: (user) => (
+        <span>{user.address}</span>
+      ),
     },
     {
       key: "status",
@@ -108,7 +105,6 @@ export function createUserColumn({
       key: "actions",
       label: "ACCIONES",
       align: "end",
-
       render: (user) => (
         <div className="flex justify-end gap-1">
           <Button

@@ -29,11 +29,9 @@ export function DataTable<T extends { id: Key }>({
   columns,
   loading = false,
   emptyContent = "No hay registros.",
-  selectedKeys,
   onSelectionChange,
   sortDescriptor,
   onSortChange,
-  renderExpanded,
 }: Props<T>) {
   return (
     <Table

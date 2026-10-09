@@ -1,7 +1,6 @@
 "use client";
 
 import { ContentBox } from "@/components/setting-option";
-import InputCustom from "@/components/ui/input-custom";
 import { PropsModalHeroUI } from "@/types/global";
 import {
   Button,
@@ -14,8 +13,6 @@ import {
 import {
   ArrowLeftRightIcon,
   Banknote,
-  CreditCardIcon,
-  ShieldCheck,
   Wallet,
 } from "lucide-react";
 import OptionCash from "./sale/OptionCash";

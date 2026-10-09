@@ -118,7 +118,6 @@ export function ButtonSvg({
   );
 }
 export function ContentSettignBox({
-  className,
   ...props
 }: React.ComponentProps<"div">) {
   return (

@@ -1,6 +1,5 @@
 import { ContentBox } from "@/components/setting-option";
 import React from "react";
-import ContentFilter from "../ContentFilter";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CountState from "./CountState";
 import SelectOptions from "@/components/ui/autocomplete";

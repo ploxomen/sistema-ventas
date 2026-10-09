@@ -119,7 +119,7 @@ export default function NavSettings() {
                       }
                       key={option.position}
                       Icon={option.Icon}
-                      onClick={(e) => setPositionSidebar(option.position)}
+                      onClick={() => setPositionSidebar(option.position)}
                     ></ButtonSvg>
                   ))}
                 </ContentBox>
@@ -158,7 +158,7 @@ export default function NavSettings() {
                         : "",
                   }}
                   Icon={Layout}
-                  onClick={(e) => setPrimaryColor(color)}
+                  onClick={() => setPrimaryColor(color)}
                   iconProps={{
                     style: {
                       color: `rgb(${colorMap[color]})`,

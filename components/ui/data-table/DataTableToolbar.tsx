@@ -1,8 +1,8 @@
 "use client";
 
-import { Button, Input, Select, SelectItem } from "@heroui/react";
+import { Button, SelectItem } from "@heroui/react";
 
-import { Filter, Plus, RotateCcw, Search } from "lucide-react";
+import { Plus, RotateCcw, Search } from "lucide-react";
 
 import type { TableFilter } from "@/types/table";
 import InputCustom, { SelectCustom } from "../input-custom";

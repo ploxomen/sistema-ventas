@@ -582,7 +582,7 @@ function SidebarMenuButton({
     tooltip = {
       children: (
         <ContentBox className="flex flex-col gap-2 min-w-40">
-          {tooltip.map((item, index) => (
+          {tooltip.map((item) => (
             <a
               key={item.idModule}
               href={item.urlModule}

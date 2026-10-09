@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { apiAxiosServer } from "@/lib/apiAxiosServer";
-import { ApiListResponse } from "@/types/api";
 import { parseQueryParams } from "@/utils/parse-query-params";
-import { Category } from "@/types/category";
-import axios from "axios";
 import { ApiError } from "@/lib/ApiError";
 const URL_API = "users";
 export async function GET(request: NextRequest) {

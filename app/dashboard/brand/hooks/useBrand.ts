@@ -2,7 +2,6 @@ import { useConfirm } from "@/components/modal-confirmation";
 import { StatusHttp } from "@/data/common/types";
 import { apiAxios } from "@/lib/apiAxios";
 import { Brand } from "@/types/brand";
-import { Category } from "@/types/category";
 import { useState } from "react";
 
 export const useBrand = ({

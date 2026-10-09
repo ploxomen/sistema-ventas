@@ -4,7 +4,6 @@ import { User } from '@/types/user';
 import React, { useMemo } from 'react'
 import { createUserColumn } from './UserColumnAction';
 import { DataTable, DataTablePagination, DataTableToolbar } from '@/components/ui/data-table';
-import { LoaderOverlay } from '@/components/loader-overlay';
 
 export default function UsuarioManager() {
   //MODAL DE CREACION Y EDICION

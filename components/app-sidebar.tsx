@@ -1,19 +1,6 @@
 "use client";
 
 import * as React from "react";
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react";
-
 import { NavMain } from "@/components/nav-main";
 import {
   Sidebar,
@@ -23,15 +10,6 @@ import {
 import { useDirectionStore } from "@/store/useDirectionStore";
 import { Position, usePositionSidebar } from "@/store/usePositionSidebar";
 import { useAuthStore } from "@/store/useAuth";
-
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { isRTL } = useDirectionStore();

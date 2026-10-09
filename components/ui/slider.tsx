@@ -69,7 +69,7 @@ function Slider({
         />
       </SliderPrimitive.Track>
       {Array.from({ length: _values.length }, (_, index) => (
-        <Tooltip open>
+        <Tooltip open key={index}>
           <TooltipTrigger asChild>
             <SliderPrimitive.Thumb
               data-slot="slider-thumb"

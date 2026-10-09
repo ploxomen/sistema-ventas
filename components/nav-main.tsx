@@ -1,8 +1,7 @@
 "use client";
-import { ChevronRight, type LucideIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -18,7 +17,6 @@ import {
 } from "./ui/accordion";
 import { GroupedModule } from "@/store/useAuth";
 import { Icon } from "./icon";
-import Link from "next/link";
 
 export function NavMain({
   items,
