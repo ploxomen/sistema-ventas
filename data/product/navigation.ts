@@ -13,3 +13,8 @@ export const navigationProductList = [
   product,
   { ...newProduct, url: null },
 ];
+
+export const navigationProduct = [
+  navigationDashboardHome,
+  { ...product, url: null },
+];
