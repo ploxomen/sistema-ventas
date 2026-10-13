@@ -3,28 +3,28 @@ import { useCallback, useEffect, useState } from "react";
 import { apiAxios } from "@/lib/apiAxios";
 import type { ApiListResponse } from "@/types/api";
 import type { DataTableParams } from "@/types/table";
-interface UseDataTableOptions {
+interface UseDataTableOptions<F> {
   endpoint ?: string;
   initialPageSize?: number;
   initialSearch?: string;
   initialSortBy?: string;
   initialSortDirection?: "asc" | "desc";
-  initialFilters?: Record<string, string | string[] | number | boolean>;
+  initialFilters?: F;
 }
 
-export function useDataTable<T>({
+export function useDataTable<T,F>({
   endpoint = "",
   initialPageSize = 10,
   initialSearch = "",
   initialSortBy,
   initialSortDirection = "asc",
-  initialFilters = {},
-}: UseDataTableOptions) {
+  initialFilters = {} as F,
+}: UseDataTableOptions<F>) {
   const [data, setData] = useState<T[]>([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(initialPageSize);
   const [search, setSearch] = useState(initialSearch);
-  const [filters, setFilters] = useState(initialFilters);
+  const [filters, setFilters] = useState<F>(initialFilters);
   const [sortBy, setSortBy] = useState(initialSortBy);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">(
     initialSortDirection,
@@ -72,7 +72,7 @@ export function useDataTable<T>({
   }, []);
 
   const handleFilter = useCallback(
-    (key: string, value: string | string[] | number | boolean) => {
+    <K extends keyof F>(key: K, value: F[K]) => {
       setFilters((current) => ({
         ...current,
         [key]: value,
