@@ -4,17 +4,8 @@ import { TableColumn } from "@/types/table";
 import { StatusProduct } from "@/types/user";
 import { Button } from "@heroui/react";
 import { Edit, Trash2 } from "lucide-react";
+import { ProductTable } from "../types/product";
 
-export interface ProductTable {
-  id: number;
-  name: string;
-  categoryName: string;
-  url?: string | null;
-  description?: string;
-  price: number;
-  stock: number;
-  minimunStock: number;
-}
 const ChipProductStatus = ({ status }: { status: StatusProduct }) => {
   const statusConfig: Record<
     StatusProduct,

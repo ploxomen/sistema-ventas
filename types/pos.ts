@@ -4,6 +4,10 @@ export type PaymentMethod =
   | "plin"
   | "digital_wallet";
 
+export interface FilterProduct {
+  categoryId: number,
+  subcategoryId: number,
+}
 export interface POSProduct {
   id?: number;
   name: string;
@@ -13,7 +17,7 @@ export interface POSProduct {
   image?: string;
   stock: number;
   brand ?: string,
-  subcategory ?: string,
+  category ?: string,
   hasExpiration: boolean;
 }
 

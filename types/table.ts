@@ -39,11 +39,11 @@ export interface DataTableState {
   selectedKeys: Set<Key>;
 }
 
-export interface DataTableParams {
+export interface DataTableParams<F> {
   page: number;
   limit: number;
   search?: string;
   sortBy?: string;
   sortDirection?: "asc" | "desc";
-  filters?: Record<string, string | string[] | number | boolean>;
+  filters?: F;
 }

@@ -7,12 +7,12 @@ interface Props {
 export const useCategoryData = ({
     idCategory
 } : Props) => {
-    const [categories, setCategories] = useState<Category>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
     const subcategories = useMemo(() => {
-        if(!idCategory){
+        if(!idCategory || !categories.length){
             return [];
         }
-        return categories.find(cat => cat.id == idCategory).subCategories || [];
+        return categories.find(cat => cat.id == idCategory)?.subCategories || [];
 
     },[idCategory, categories])
     const onCategory = async () => {

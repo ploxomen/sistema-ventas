@@ -38,7 +38,7 @@ export function useDataTable<T,F>({
     try {
       setLoading(true);
       setError(null);
-      const params: DataTableParams = {
+      const params: DataTableParams<F> = {
         page,
         limit,
         search: search.trim() || undefined,
@@ -81,22 +81,6 @@ export function useDataTable<T,F>({
     },
     [],
   );
-
-  const removeFilter = useCallback((key: string) => {
-    setFilters((current) => {
-      const next = {
-        ...current,
-      };
-      delete next[key];
-      return next;
-    });
-    setPage(1);
-  }, []);
-
-  const clearFilters = useCallback(() => {
-    setFilters({});
-    setPage(1);
-  }, []);
 
   const handleSort = useCallback(
     (column: string) => {
@@ -159,8 +143,6 @@ export function useDataTable<T,F>({
     sortDirection,
     setSearch: handleSearch,
     setFilter: handleFilter,
-    removeFilter,
-    clearFilters,
     handleSort,
     setPage: handlePageChange,
     setPageSize: handlePageSizeChange,

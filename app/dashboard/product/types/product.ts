@@ -11,6 +11,17 @@ export interface Brand {
   id: number;
   name: string;
 }
+export interface ProductTable {
+  id: number;
+  name: string;
+  categoryName: string;
+  url?: string | null;
+  description?: string;
+  price: number;
+  stock: number;
+  brand ?: string,
+  minimunStock: number;
+}
 export interface ProductImage {
   id?: number;
   file?: File;
@@ -23,6 +34,7 @@ export interface ProductLot {
   expirationDate?: string;
   lotNumber?: string;
 }
+
 export interface ProductFormData {
   id?: number;
   name: string;

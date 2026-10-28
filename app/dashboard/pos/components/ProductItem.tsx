@@ -10,7 +10,7 @@ export default function ProductItem({
     price,
     image,
     stock,
-    subcategory,
+    category,
     brand
 } : POSProduct) {
   return (
@@ -33,7 +33,7 @@ export default function ProductItem({
           <span className="text-[10px] text-slate-400 bg-slate-100 px-2 py-1 rounded">
             {brand}
           </span>
-          <span className="text-[10px] text-slate-400">{subcategory}</span>
+          <span className="text-[10px] text-slate-400">{category}</span>
         </ContentBox>
       </ContentBox>
       <ContentBox className="flex justify-between items-end mt-4">
