@@ -16,6 +16,7 @@ export interface ProductTable {
   name: string;
   categoryName: string;
   url?: string | null;
+  hasExpiration ?: boolean;
   description?: string;
   price: number;
   stock: number;

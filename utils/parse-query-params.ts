@@ -18,14 +18,20 @@ interface DefaultOptions {
 
 export function parseQueryParams(
   request: NextRequest,
-  defaults: DefaultOptions = {}
+  defaults: DefaultOptions = {},
 ): PaginationParams {
   const searchParams = request.nextUrl.searchParams;
-
   // Valores por defecto
-  const page = defaults.page ?? 0;
-  const limit = defaults.limit ?? 0;
-  const sortDirection = defaults.sortDirection ?? "asc";
+  // 1. Manejo seguro para page y limit (evitando NaN y asegurando mínimos)
+  const rawPage = parseInt(searchParams.get("page") ?? "1", 10);
+  const page = !isNaN(rawPage) && rawPage > 0 ? rawPage : 1;
+
+  const rawLimit = parseInt(searchParams.get("limit") ?? "10", 10);
+  const limit = !isNaN(rawLimit) && rawLimit > 0 ? rawLimit : 10;
+
+  // 2. Validación segura para sortDirection
+  const rawSort = searchParams.get("sortDirection");
+  const sortDirection: "asc" | "desc" = rawSort === "desc" ? "desc" : "asc";
   // Columna por la cual ordenar
   const column = searchParams.get("column") || undefined;
   // Búsqueda opcional

@@ -2,15 +2,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { apiAxios } from "@/lib/apiAxios";
 import type { ApiListResponse } from "@/types/api";
-import type { DataTableParams } from "@/types/table";
-interface UseDataTableOptions<F> {
-  endpoint ?: string;
-  initialPageSize?: number;
-  initialSearch?: string;
-  initialSortBy?: string;
-  initialSortDirection?: "asc" | "desc";
-  initialFilters?: F;
-}
+import type { DataTableParams, UseDataTableOptions } from "@/types/table";
+
 
 export function useDataTable<T,F>({
   endpoint = "",
@@ -44,7 +37,7 @@ export function useDataTable<T,F>({
         search: search.trim() || undefined,
         sortBy,
         sortDirection,
-        filters,
+        ...filters
       };
       const response = await apiAxios.get<ApiListResponse<T>>(endpoint, {
         params,

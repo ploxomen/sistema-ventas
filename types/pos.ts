@@ -11,14 +11,14 @@ export interface FilterProduct {
 export interface POSProduct {
   id?: number;
   name: string;
-  sku?: string;
   barcode?: string;
   price: number;
   image?: string;
   stock: number;
   brand ?: string,
   category ?: string,
-  hasExpiration: boolean;
+  hasExpiration ?: boolean;
+  addProduct ?: (product : POSProduct) => void,
 }
 
 export interface ProductLot {
@@ -37,20 +37,17 @@ export interface CartItemLot {
 }
 
 export interface CartItem {
-  id: string;
+  id?: string;
   productId: number;
   name: string;
-  sku: string;
+  image ?: string,
   price: number;
   quantity: number;
-
-  /**
-   * Lotes que terminarán afectando el inventario.
-   */
+  subtotal: number;
   lots: CartItemLot[];
-
   hasExpiration: boolean;
 }
+
 
 export interface CartTotals {
   subtotal: number;

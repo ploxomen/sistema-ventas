@@ -8,6 +8,14 @@ export interface TableColumn<T> {
   sortable?: boolean;
   render?: (item: T, index: number) => ReactNode;
 }
+export interface UseDataTableOptions<F> {
+  endpoint ?: string;
+  initialPageSize?: number;
+  initialSearch?: string;
+  initialSortBy?: string;
+  initialSortDirection?: "asc" | "desc";
+  initialFilters?: F;
+}
 
 export interface TableFilterOption {
   label: string;

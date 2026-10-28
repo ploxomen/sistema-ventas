@@ -10,9 +10,11 @@ import { useDataTable } from "@/hooks/tables/useDataTable";
 import { FilterProduct } from "@/types/pos";
 import { useCategoryData } from "@/hooks/common/useCategoryData";
 import { ProductTable } from "../../product/types/product";
+import { usePOS } from "@/hooks/dashboard/usePOS";
 
 export default function PosManager() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { addProduct, cart, updateQuantity, totals } = usePOS();
   const {
     data: products,
     filters,
@@ -37,13 +39,15 @@ export default function PosManager() {
       />
       <ContentBox className="flex gap-5">
         <PosProduct
+          addProduct={addProduct}
           products={products}
           subcategories={subcategories}
+          setFilter={setFilter}
           filterSubCatId={filters.subcategoryId}
         />
-        <PosCar openCar={onOpen} />
+        <PosCar openCar={onOpen} updateQuantity={updateQuantity} totals={totals} cart={cart} />
       </ContentBox>
-      <PosSaleModal isOpen={isOpen} onOpenChange={onOpenChange} total={30} />
+      <PosSaleModal isOpen={isOpen} onOpenChange={onOpenChange} total={totals.total} />
     </>
   );
 }

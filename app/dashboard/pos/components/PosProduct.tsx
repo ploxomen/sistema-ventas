@@ -3,18 +3,25 @@ import { ContentBox } from "@/components/setting-option";
 import { Button } from "@heroui/react";
 import React from "react";
 import ProductItem from "./ProductItem";
-import { POSProduct } from "@/types/pos";
 import { SubCategory } from "@/types/category";
 import { ProductTable } from "../../product/types/product";
+import { FilterProduct, POSProduct } from "@/types/pos";
 interface Props {
   products: ProductTable[];
   subcategories: SubCategory[];
-  filterSubCatId ?: number
+  filterSubCatId?: number;
+  addProduct : (product : POSProduct) => void,
+  setFilter: <K extends keyof FilterProduct>(
+    key: K,
+    value: FilterProduct[K],
+  ) => void;
 }
 export default function PosProduct({
   products = [],
   subcategories = [],
-  filterSubCatId = 9
+  filterSubCatId = 9,
+  setFilter = () => {},
+  addProduct = () => {}
 }: Props) {
   return (
     <section className="flex-1">
@@ -25,9 +32,18 @@ export default function PosProduct({
           </span>
         </ContentBox>
         <ContentBox className="flex gap-2 overflow-x-auto hide-scrollbar">
-          <Button color={filterSubCatId === 0 ? 'primary' : 'secondary'}>Todos</Button>
+          <Button
+            color={filterSubCatId === 0 ? "primary" : "secondary"}
+            onPress={() => setFilter("subcategoryId", 0)}
+          >
+            Todos
+          </Button>
           {subcategories.map((sub) => (
-            <Button color={filterSubCatId === sub.id ? 'primary' : 'secondary'} key={sub.id}>
+            <Button
+              color={filterSubCatId === sub.id ? "primary" : "secondary"}
+              key={sub.id}
+              onPress={() => setFilter("subcategoryId", sub.id!)}
+            >
               {sub.name}
             </Button>
           ))}
@@ -41,12 +57,14 @@ export default function PosProduct({
         {products.map((product) => (
           <ProductItem
             key={product.id}
-            image={product.url ? product.url : ""}
+            id={product.id}
+            image={product.url ?? ""}
             name={product.name}
             price={product.price}
             stock={product.stock}
-            hasExpiration={false}
+            hasExpiration={product.hasExpiration}
             brand={product.brand}
+            addProduct={addProduct}
             category={product.categoryName}
           />
         ))}

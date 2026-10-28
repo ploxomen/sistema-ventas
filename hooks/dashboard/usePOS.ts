@@ -27,6 +27,7 @@ export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
             ? {
                 ...item,
                 quantity: item.quantity + 1,
+                subtotal : (item.quantity + 1) * item.price
               }
             : item,
         ),
@@ -38,14 +39,14 @@ export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
     setCart((current) => [
       ...current,
       {
-        id: crypto.randomUUID(),
-        productId: product.id,
+        productId: product.id!,
+        image: product.image,
         name: product.name,
-        sku: product.sku,
         price: product.price,
         quantity: 1,
+        subtotal : product.price,
         lots: [],
-        hasExpiration: product.hasExpiration,
+        hasExpiration: product.hasExpiration ?? false,
       },
     ]);
   };
@@ -62,6 +63,7 @@ export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
           ? {
               ...item,
               quantity,
+              subtotal : quantity * item.price
             }
           : item,
       ),
@@ -79,18 +81,18 @@ export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
   };
 
   const totals = useMemo(() => {
-    const subtotal = cart.reduce(
+    const total = cart.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0,
     );
-
-    const tax = subtotal * taxRate;
+    const subtotal = total / (1 + taxRate);
+    const tax = total - subtotal;
 
     return {
       subtotal,
       discount: 0,
       tax,
-      total: subtotal,
+      total,
     };
   }, [cart, taxRate]);
 
