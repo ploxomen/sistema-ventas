@@ -11,10 +11,21 @@ import { FilterProduct } from "@/types/pos";
 import { useCategoryData } from "@/hooks/common/useCategoryData";
 import { ProductTable } from "../../product/types/product";
 import { usePOS } from "@/hooks/dashboard/usePOS";
+import PosLotModal from "./PosLotModal";
 
 export default function PosManager() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { addProduct, cart, updateQuantity, totals, clearCart } = usePOS();
+  const {
+    addProduct,
+    cart,
+    updateQuantity,
+    totals,
+    clearCart,
+    lotModalOpen,
+    lots,
+    selectedProduct,
+    addLot
+  } = usePOS();
   const {
     data: products,
     filters,
@@ -26,6 +37,9 @@ export default function PosManager() {
       categoryId: 0,
       subcategoryId: 0,
     },
+  });
+  const { isOpen: isOpenLot, onOpenChange: onOpenChangeLot } = useDisclosure({
+    isOpen: lotModalOpen,
   });
   const { categories, subcategories } = useCategoryData({
     idCategory: filters.categoryId,
@@ -45,9 +59,27 @@ export default function PosManager() {
           setFilter={setFilter}
           filterSubCatId={filters.subcategoryId}
         />
-        <PosCar openCar={onOpen} clearCart={clearCart} updateQuantity={updateQuantity} totals={totals} cart={cart} />
+        <PosCar
+          openCar={onOpen}
+          clearCart={clearCart}
+          updateQuantity={updateQuantity}
+          totals={totals}
+          cart={cart}
+        />
       </ContentBox>
-      <PosSaleModal isOpen={isOpen} onOpenChange={onOpenChange} total={totals.total} />
+      <PosSaleModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        total={totals.total}
+      />
+      
+      <PosLotModal
+        addLot={addLot}
+        isOpen={isOpenLot}
+        lots={lots}
+        onOpenChange={onOpenChangeLot}
+        product={selectedProduct}
+      />
     </>
   );
 }

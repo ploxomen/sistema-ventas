@@ -2,7 +2,14 @@
 
 import { useMemo, useState } from "react";
 
-import { CartItem, PaymentData, POSProduct, ProductLot } from "@/types/pos";
+import {
+  CartItem,
+  CartItemLot,
+  PaymentData,
+  POSProduct,
+  ProductLot,
+} from "@/types/pos";
+import { apiAxios } from "@/lib/apiAxios";
 
 interface UsePOSOptions {
   taxRate?: number;
@@ -10,16 +17,41 @@ interface UsePOSOptions {
 
 export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
   const [cart, setCart] = useState<CartItem[]>([]);
-
+  const [lotModalOpen, setLotModalOpen] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<POSProduct | null>(
     null,
   );
+  const [lots, setLots] = useState<{
+    productId: number | null;
+    items: CartItemLot[];
+  }>({ productId: null, items: [] });
 
-  const [lotModalOpen, setLotModalOpen] = useState(false);
-
+  const closeModalLot = () => {
+    setLotModalOpen(false);
+    setSelectedProduct(null);
+  };
+  const viewLot = async (product: POSProduct) => {
+    if (lots.productId !== product.id) {
+      setSelectedProduct(product);
+      const response = await apiAxios.get("product/" + product.id);
+      setLots({
+        productId: response.data.id,
+        items: response.data?.productLote.map((lot: ProductLot) => ({
+          lotId: lot.id,
+          lotNumber: lot.lotNumber,
+          quantity: lot.quantity,
+          expirationDate: lot.expirationDate,
+        })),
+      });
+    }
+    setLotModalOpen(true);
+  };
   const addProduct = (product: POSProduct) => {
+    console.log(product)
+    if (product.hasExpiration && product.id) {
+      return viewLot(product);
+    }
     const existing = cart.find((item) => item.productId === product.id);
-
     if (existing) {
       setCart((current) =>
         current.map((item) =>
@@ -27,12 +59,11 @@ export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
             ? {
                 ...item,
                 quantity: item.quantity + 1,
-                subtotal : (item.quantity + 1) * item.price
+                subtotal: (item.quantity + 1) * item.price,
               }
             : item,
         ),
       );
-
       return;
     }
 
@@ -44,9 +75,7 @@ export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
         name: product.name,
         price: product.price,
         quantity: 1,
-        subtotal : product.price,
-        lots: [],
-        hasExpiration: product.hasExpiration ?? false,
+        subtotal: product.price,
       },
     ]);
   };
@@ -63,7 +92,7 @@ export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
           ? {
               ...item,
               quantity,
-              subtotal : quantity * item.price
+              subtotal: quantity * item.price,
             }
           : item,
       ),
@@ -96,44 +125,42 @@ export function usePOS({ taxRate = 0.18 }: UsePOSOptions = {}) {
     };
   }, [cart, taxRate]);
 
-  const selectLot = (
-    productId: number,
-    lots: {
-      lotId: number;
-      lotNumber: string;
-      quantity: number;
-      expirationDate?: string | null;
-    }[],
-  ) => {
-    setCart((current) =>
-      current.map((item) =>
-        item.productId === productId
-          ? {
-              ...item,
-              lots,
-            }
-          : item,
-      ),
-    );
-
-    setLotModalOpen(false);
-    setSelectedProduct(null);
+  const addLot = ({
+    lotId,
+    lotNumber,
+    expirationDate,
+  }: CartItemLot) => {
+    if (!selectedProduct) {
+      return;
+    }
+    setCart((current) => [
+      ...current,
+      {
+        lotId: lotId,
+        lotNumber: lotNumber,
+        expirationDate: expirationDate,
+        productId: selectedProduct.id!,
+        image: selectedProduct.image,
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        quantity: 1,
+        subtotal: selectedProduct.price,
+      },
+    ]);
+    closeModalLot();
   };
 
   return {
     cart,
+    lots: lots.items,
+    closeModalLot,
     totals,
-
     selectedProduct,
-    setSelectedProduct,
-
     lotModalOpen,
-    setLotModalOpen,
-
     addProduct,
     updateQuantity,
     removeProduct,
     clearCart,
-    selectLot,
+    addLot,
   };
 }

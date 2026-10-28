@@ -26,13 +26,13 @@ export interface ProductLot {
   productId: number;
   lotNumber: string;
   expirationDate?: string | null;
-  currentQuantity: number;
+  quantity: number;
 }
 
 export interface CartItemLot {
   lotId: number;
   lotNumber: string;
-  quantity: number;
+  quantity?: number;
   expirationDate?: string | null;
 }
 
@@ -44,8 +44,10 @@ export interface CartItem {
   price: number;
   quantity: number;
   subtotal: number;
-  lots: CartItemLot[];
-  hasExpiration: boolean;
+  lotId?: number;
+  lotNumber?: string;
+  expirationDate?: string | null;
+  
 }
 
 

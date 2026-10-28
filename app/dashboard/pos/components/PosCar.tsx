@@ -76,6 +76,16 @@ export default function PosCar({
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-sm truncate">{c.name}</p>
+                {c.lotId && (
+                  <div className="mt-1 flex items-center gap-2">
+                    <span className="text-[9px] bg-blue-50 text-blue-600 px-2 py-1 rounded">
+                      {c.lotNumber}
+                    </span>
+                    <span className="text-[9px] text-slate-400">
+                      Vence {c.expirationDate?.split("T")[0]}
+                    </span>
+                  </div>
+                )}
                 <div className="flex justify-between items-center mt-2">
                   <div className="flex items-center gap-2">
                     <Button
