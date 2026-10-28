@@ -22,12 +22,19 @@ export default function ProductItem({
       fullWidth
       variant="bordered"
       color="primary"
-      onPress={() => addProduct({ name, price, id, hasExpiration, stock, image })}
+      onPress={() =>
+        addProduct({ name, price, id, hasExpiration, stock, image })
+      }
     >
       <ContentBox className="flex justify-between items-start">
         <ContentBox className="w-14 h-14 rounded-xlbg-slate-100 flex items-center justify-center text-3xl">
           <img src={image} alt="Producto imagen principal" />
         </ContentBox>
+        {hasExpiration && (
+          <span className="text-[9px] bg-blue-50 text-blue-600 px-2 py-1 rounded-full font-bold">
+            LOTES
+          </span>
+        )}
       </ContentBox>
       <ContentBox className="mt-4">
         <p className="font-semibold text-slate-700 text-sm">{name}</p>
@@ -46,9 +53,7 @@ export default function ProductItem({
           <p className="text-[11px] text-slate-400">Stock: {stock}</p>
         </ContentBox>
         <ContentBox className="w-8 h-8 rounded-lg bg-primary-50 text-primary-600 flex items-center justify-center">
-          <PlusIcon
-            size={24}
-          />
+          <PlusIcon size={24} />
         </ContentBox>
       </ContentBox>
     </Button>

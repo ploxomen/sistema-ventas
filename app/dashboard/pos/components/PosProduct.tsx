@@ -10,7 +10,7 @@ interface Props {
   products: ProductTable[];
   subcategories: SubCategory[];
   filterSubCatId?: number;
-  addProduct : (product : POSProduct) => void,
+  addProduct: (product: POSProduct) => void;
   setFilter: <K extends keyof FilterProduct>(
     key: K,
     value: FilterProduct[K],
@@ -21,7 +21,7 @@ export default function PosProduct({
   subcategories = [],
   filterSubCatId = 9,
   setFilter = () => {},
-  addProduct = () => {}
+  addProduct = () => {},
 }: Props) {
   return (
     <section className="flex-1">

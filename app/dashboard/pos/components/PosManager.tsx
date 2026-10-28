@@ -14,7 +14,7 @@ import { usePOS } from "@/hooks/dashboard/usePOS";
 
 export default function PosManager() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const { addProduct, cart, updateQuantity, totals } = usePOS();
+  const { addProduct, cart, updateQuantity, totals, clearCart } = usePOS();
   const {
     data: products,
     filters,
@@ -45,7 +45,7 @@ export default function PosManager() {
           setFilter={setFilter}
           filterSubCatId={filters.subcategoryId}
         />
-        <PosCar openCar={onOpen} updateQuantity={updateQuantity} totals={totals} cart={cart} />
+        <PosCar openCar={onOpen} clearCart={clearCart} updateQuantity={updateQuantity} totals={totals} cart={cart} />
       </ContentBox>
       <PosSaleModal isOpen={isOpen} onOpenChange={onOpenChange} total={totals.total} />
     </>

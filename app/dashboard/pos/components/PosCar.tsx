@@ -15,10 +15,17 @@ import React from "react";
 interface Props {
   openCar: () => void;
   cart: CartItem[];
-  updateQuantity : (productId : number, quantity : number) => void
-  totals: CartTotals
+  updateQuantity: (productId: number, quantity: number) => void;
+  totals: CartTotals;
+  clearCart: () => void;
 }
-export default function PosCar({ openCar, cart, updateQuantity, totals }: Props) {
+export default function PosCar({
+  openCar,
+  cart,
+  updateQuantity,
+  totals,
+  clearCart,
+}: Props) {
   return (
     <aside className="w-[430px] bg-white border-l border-slate-200 flex flex-col rounded-2xl shrink-0">
       <ContentBox className="p-5 border-b border-slate-200 flex gap-2">
@@ -26,7 +33,12 @@ export default function PosCar({ openCar, cart, updateQuantity, totals }: Props)
           <h2 className="font-bold text-lg">Venta actual</h2>
           <p className="text-xs text-slate-400 mt-1">0 productos</p>
         </ContentBox>
-        <Button variant="flat" color="danger" size="sm">
+        <Button
+          variant="flat"
+          color="danger"
+          size="sm"
+          onPress={() => clearCart()}
+        >
           Vaciar
         </Button>
       </ContentBox>
@@ -66,14 +78,28 @@ export default function PosCar({ openCar, cart, updateQuantity, totals }: Props)
                 <p className="font-semibold text-sm truncate">{c.name}</p>
                 <div className="flex justify-between items-center mt-2">
                   <div className="flex items-center gap-2">
-                    <Button color="secondary" isIconOnly size="sm" onPress={() => updateQuantity(c.productId, c.quantity - 1)}>
-                      <MinusIcon className="size-4"/>
+                    <Button
+                      color="secondary"
+                      isIconOnly
+                      size="sm"
+                      onPress={() =>
+                        updateQuantity(c.productId, c.quantity - 1)
+                      }
+                    >
+                      <MinusIcon className="size-4" />
                     </Button>
                     <span className="w-5 text-center font-semibold">
                       {c.quantity}
                     </span>
-                    <Button color="secondary" isIconOnly size="sm" onPress={() => updateQuantity(c.productId, c.quantity + 1)}>
-                      <PlusIcon className="size-4"/>
+                    <Button
+                      color="secondary"
+                      isIconOnly
+                      size="sm"
+                      onPress={() =>
+                        updateQuantity(c.productId, c.quantity + 1)
+                      }
+                    >
+                      <PlusIcon className="size-4" />
                     </Button>
                   </div>
                   <span className="font-bold">S/ {c.subtotal.toFixed(2)}</span>
@@ -95,8 +121,7 @@ export default function PosCar({ openCar, cart, updateQuantity, totals }: Props)
           </ContentBox>
           <div className="border-t border-dashed border-slate-200 pt-3 mt-3 flex justify-between items-end">
             <span className="font-semibold block">Total</span>
-            <span className="text-3xl font-black block text-slate-900"
-            >
+            <span className="text-3xl font-black block text-slate-900">
               S/ {totals.total.toFixed(2)}
             </span>
           </div>
